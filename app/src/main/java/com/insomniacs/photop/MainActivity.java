@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent;
         switch (v.getId()) {
             case R.id.button_sample:
-                intent = new Intent(this, CameraPreviewSampleActivity.class);
+                intent = new Intent(this, ActivitySelfiePreview.class);
                 startActivityForResult(intent, 10001);
 //                Util.TakeScreenshot(linearLayout , MainActivity.this);
                 break;

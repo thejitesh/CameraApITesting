@@ -13,7 +13,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-public class CameraPreviewSampleActivity extends Activity {
+public class ActivitySelfiePreview extends Activity {
+
     private CameraPreview mPreview;
     private RelativeLayout mLayout;
 
@@ -34,7 +35,7 @@ public class CameraPreviewSampleActivity extends Activity {
         mLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Util.TakeScreenshot(mPreview, CameraPreviewSampleActivity.this);
+                // Util.TakeScreenshot(mPreview, ActivitySelfiePreview.this);
                 mPreview.mCamera.takePicture(null, null, mPicture);
             }
         });
@@ -101,7 +102,7 @@ public class CameraPreviewSampleActivity extends Activity {
 //            Bitmap bmp1 = decodeFile(tmpFile);
 //            Bitmap bmp = Bitmap.createScaledBitmap(bmp1, 1000, 100, true);
 //            //  camera_image.setImageBitmap(bmp);
-//            //Util.TakeScreenshot(mLayout , CameraPreviewSampleActivity.this);
+//            //Util.TakeScreenshot(mLayout , ActivitySelfiePreview.this);
 //            //tmpFile.delete();
         }
     };
