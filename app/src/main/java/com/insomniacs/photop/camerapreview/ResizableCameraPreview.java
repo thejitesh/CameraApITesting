@@ -1,4 +1,4 @@
-package com.insomniacs.photop;
+package com.insomniacs.photop.camerapreview;
 
 import android.app.Activity;
 import android.hardware.Camera;

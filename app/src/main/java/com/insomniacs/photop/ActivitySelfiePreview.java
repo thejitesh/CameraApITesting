@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 
+import com.insomniacs.photop.camerapreview.CameraPreview;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
