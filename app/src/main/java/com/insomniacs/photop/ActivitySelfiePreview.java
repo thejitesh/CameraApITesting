@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 
 import com.insomniacs.photop.camerapreview.CameraPreview;
+import com.insomniacs.photop.utils.AndroidUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,16 +23,8 @@ public class ActivitySelfiePreview extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-
-        // Hide status-bar
-        //getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        // Hide title-bar, must be before setContentView
-        //requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-        // Requires RelativeLayout.
-
         setContentView(R.layout.activity_preview);
         mLayout = findViewById(R.id.mLayout);
         mLayout.setOnClickListener(new View.OnClickListener() {
@@ -50,14 +43,15 @@ public class ActivitySelfiePreview extends Activity {
         // Usually, 0 for back-facing camera, 1 for front-facing camera.
         // If the OS is pre-gingerbreak, this does not have any effect.
         /*TODO change for camera type*/
+
         mPreview = new CameraPreview(this, 1, CameraPreview.LayoutMode.FitToParent);
-        LayoutParams previewLayoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        LayoutParams previewLayoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         // Un-comment below lines to specify the size.
-        //previewLayoutParams.height = 500;
-        //previewLayoutParams.width = 500;
+        previewLayoutParams.height = AndroidUtils.getScreenHeight();
+        previewLayoutParams.width = AndroidUtils.getScreenWidth();
 
         // Un-comment below line to specify the position.
-        //mPreview.setCenterPosition(270, 130);
+        mPreview.setCenterPosition(previewLayoutParams.width/2, previewLayoutParams.height/2);
 
         mLayout.addView(mPreview, 0, previewLayoutParams);
     }

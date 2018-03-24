@@ -38,19 +38,19 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
     private LayoutMode mLayoutMode;
     private int mCenterPosX = -1;
     private int mCenterPosY;
-    
+
     PreviewReadyCallback mPreviewReadyCallback = null;
-    
+
     public static enum LayoutMode {
         FitToParent, // Scale to the size that no side is larger than the parent
         NoBlank // Scale to the size that no side is smaller than the parent
     };
-    
+
     public interface PreviewReadyCallback {
         public void onPreviewReady();
     }
 
- 
+
     /**
      * State flag: true when surface's layout size is set and surfaceChanged()
      * process has not been completed.
@@ -94,7 +94,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
             mCamera = null;
         }
     }
-    
+
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
         mSurfaceChangedCallDepth++;
@@ -104,7 +104,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 
     private void doSurfaceChanged(int width, int height) {
         mCamera.stopPreview();
-        
+
         Camera.Parameters cameraParams = mCamera.getParameters();
         boolean portrait = isPortrait();
 
@@ -148,12 +148,12 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
                 Log.w(LOG_TAG, "Gave up starting preview");
             }
         }
-        
+
         if (null != mPreviewReadyCallback) {
             mPreviewReadyCallback.onPreviewReady();
         }
     }
-    
+
     /**
      * @param cameraParams
      * @param portrait
@@ -210,9 +210,9 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
                 return size;
             }
         }
-        
+
         if (DEBUGGING) { Log.v(LOG_TAG, "Same picture size not found."); }
-        
+
         // if the preview size is not supported as a picture size
         float reqRatio = ((float) previewSize.width) / previewSize.height;
         float curRatio, deltaRatio;
@@ -225,10 +225,10 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
                 retSize = size;
             }
         }
-        
+
         return retSize;
     }
-    
+
     protected boolean adjustSurfaceLayoutSize(Camera.Size previewSize, boolean portrait,
             int availableWidth, int availableHeight) {
         float tmpLayoutHeight, tmpLayoutWidth;
@@ -292,7 +292,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         mCenterPosX = x;
         mCenterPosY = y;
     }
-    
+
     protected void configureCameraParameters(Camera.Parameters cameraParams, boolean portrait) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.FROYO) { // for 2.1 and before
             if (portrait) {
@@ -339,7 +339,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
     public void surfaceDestroyed(SurfaceHolder holder) {
         stop();
     }
-    
+
     public void stop() {
         if (null == mCamera) {
             return;
@@ -352,25 +352,25 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
     public boolean isPortrait() {
         return (mActivity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
     }
-    
+
     public void setOneShotPreviewCallback(PreviewCallback callback) {
         if (null == mCamera) {
             return;
         }
         mCamera.setOneShotPreviewCallback(callback);
     }
-    
+
     public void setPreviewCallback(PreviewCallback callback) {
         if (null == mCamera) {
             return;
         }
         mCamera.setPreviewCallback(callback);
     }
-    
+
     public Camera.Size getPreviewSize() {
         return mPreviewSize;
     }
-    
+
     public void setOnPreviewReady(PreviewReadyCallback cb) {
         mPreviewReadyCallback = cb;
     }
