@@ -38,6 +38,10 @@ public class AdapterTeamLogoFrame extends RecyclerView.Adapter<AdapterTeamLogoFr
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
 
+        ModelTeamLogoFrame modelTeamLogoFrame = logoFrames.get(position);
+        holder.teamA.setText(modelTeamLogoFrame.teamA);
+        holder.teamB.setText(modelTeamLogoFrame.teamB);
+
     }
 
     @Override
@@ -48,13 +52,15 @@ public class AdapterTeamLogoFrame extends RecyclerView.Adapter<AdapterTeamLogoFr
     class Holder extends RecyclerView.ViewHolder {
 
         ImageView imgRes;
-        TextView tvInfo;
+        TextView teamA;
+        TextView teamB;
 
         public Holder(View itemView) {
 
             super(itemView);
             imgRes = itemView.findViewById(R.id.imgRes);
-            tvInfo = itemView.findViewById(R.id.tvInfo);
+            teamA = itemView.findViewById(R.id.teamA);
+            teamB = itemView.findViewById(R.id.teamB);
         }
     }
 }

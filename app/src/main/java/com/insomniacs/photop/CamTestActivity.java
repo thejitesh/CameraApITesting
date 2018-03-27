@@ -6,7 +6,6 @@ package com.insomniacs.photop;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -30,9 +29,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -102,14 +99,26 @@ public class CamTestActivity extends Activity {
         rvFrames.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         rvFrames.setAdapter(adapterTeamLogoFrame);
 
+//        Sons Of Pitches
+//        The Scorpion Squad
+//        Tandava Strotam
+//        Anonymous
+//        Scoring Willows
+//        Royal Jatts
+//        Beer Dose
+//        Sleepless Rangers.
 
-        ModelTeamLogoFrame modelTeamLogoFrame = new ModelTeamLogoFrame();
+
         ArrayList<ModelTeamLogoFrame> modelTeamLogoFrames = new ArrayList<>();
-        modelTeamLogoFrames.add(modelTeamLogoFrame);
-        modelTeamLogoFrames.add(modelTeamLogoFrame);
-        modelTeamLogoFrames.add(modelTeamLogoFrame);
-        modelTeamLogoFrames.add(modelTeamLogoFrame);
-        modelTeamLogoFrames.add(modelTeamLogoFrame);
+
+        modelTeamLogoFrames.add(new ModelTeamLogoFrame("Sons Of Pitches", "The Scorpion Squad", -1));
+        modelTeamLogoFrames.add(new ModelTeamLogoFrame("Sons Of Pitches", " Tandava Strotam", -1));
+        modelTeamLogoFrames.add(new ModelTeamLogoFrame("Sons Of Pitches", "Anonymous", -1));
+        modelTeamLogoFrames.add(new ModelTeamLogoFrame("Sons Of Pitches", "Scoring Willows", -1));
+        modelTeamLogoFrames.add(new ModelTeamLogoFrame("Sons Of Pitches", "Royal Jatts", -1));
+        modelTeamLogoFrames.add(new ModelTeamLogoFrame("Sons Of Pitches", "Beer Dose", -1));
+        modelTeamLogoFrames.add(new ModelTeamLogoFrame("Sons Of Pitches", "Sleepless Rangers", -1));
+
         adapterTeamLogoFrame.setData(modelTeamLogoFrames);
 
 
