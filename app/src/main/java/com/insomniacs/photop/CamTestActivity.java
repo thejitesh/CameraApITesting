@@ -46,7 +46,7 @@ public class CamTestActivity extends Activity {
     private static final String TAG = "CamTestActivity";
     Preview preview;
     Camera camera;
-    ImageView image;
+    CustomView image;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -236,11 +236,13 @@ public class CamTestActivity extends Activity {
 
         @Override
         protected void onPostExecute(File aVoid) {
+
             super.onPostExecute(aVoid);
             Bitmap bitmap = BitmapFactory.decodeFile(aVoid.getAbsolutePath());
-            Bitmap bb = ExifUtil.rotateBitmap(aVoid.getAbsolutePath() , bitmap);
+            Bitmap bb = ExifUtil.rotateBitmap(aVoid.getAbsolutePath(), bitmap);
 
-            image.setImageBitmap(bb);
+            image.setVisibility(View.VISIBLE);
+            image.setBitmap(bb);
         }
     }
 }

@@ -13,7 +13,7 @@ import java.lang.reflect.Method;
 public class ExifUtil {
     public static Bitmap rotateBitmap(String src, Bitmap bitmap) {
         try {
-            int orientation = getExifOrientation(src);
+            int orientation = 2;//getExifOrientation(src);
 
             if (orientation == 1) {
                 return bitmap;
@@ -57,7 +57,7 @@ public class ExifUtil {
                 e.printStackTrace();
                 return bitmap;
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
