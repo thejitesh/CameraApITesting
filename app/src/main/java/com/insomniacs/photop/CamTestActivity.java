@@ -21,6 +21,8 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
@@ -37,6 +39,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class CamTestActivity extends Activity {
 
@@ -92,6 +95,23 @@ public class CamTestActivity extends Activity {
         //				return true;
         //			}
         //		});
+
+
+        RecyclerView rvFrames = findViewById(R.id.rvFrames);
+        AdapterTeamLogoFrame adapterTeamLogoFrame = new AdapterTeamLogoFrame(this);
+        rvFrames.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        rvFrames.setAdapter(adapterTeamLogoFrame);
+
+
+        ModelTeamLogoFrame modelTeamLogoFrame = new ModelTeamLogoFrame();
+        ArrayList<ModelTeamLogoFrame> modelTeamLogoFrames = new ArrayList<>();
+        modelTeamLogoFrames.add(modelTeamLogoFrame);
+        modelTeamLogoFrames.add(modelTeamLogoFrame);
+        modelTeamLogoFrames.add(modelTeamLogoFrame);
+        modelTeamLogoFrames.add(modelTeamLogoFrame);
+        modelTeamLogoFrames.add(modelTeamLogoFrame);
+        adapterTeamLogoFrame.setData(modelTeamLogoFrames);
+
 
     }
 
