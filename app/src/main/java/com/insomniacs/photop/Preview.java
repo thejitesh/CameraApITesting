@@ -46,12 +46,12 @@ class Preview extends ViewGroup implements SurfaceHolder.Callback {
             mSupportedPreviewSizes = mCamera.getParameters().getSupportedPreviewSizes();
             requestLayout();
 
-//            // get Camera parameters
-            Camera.Parameters params = mCamera.getParameters();
-            params.set("rotation", 90);
-            params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
-            List<String> focusModes = params.getSupportedFocusModes();
-            mCamera.setParameters(params);
+////            // get Camera parameters
+//            Camera.Parameters params = mCamera.getParameters();
+//            params.set("rotation", 90);
+//            params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+//            List<String> focusModes = params.getSupportedFocusModes();
+//            mCamera.setParameters(params);
         }
     }
 
