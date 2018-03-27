@@ -1,4 +1,4 @@
-package com.insomniacs.photop;
+package com.insomniacs.photop.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

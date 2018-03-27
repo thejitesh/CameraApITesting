@@ -10,7 +10,7 @@
 // - Sun Tsu,
 // "The Art of War"
 
-package com.insomniacs.photop;
+package com.insomniacs.photop.utils;
 
 import android.content.ContentResolver;
 import android.content.Context;
