@@ -132,13 +132,17 @@ public class CamTestActivity extends Activity {
     @Override
     protected void onPause() {
 
+        stopCameraPreview();
+        super.onPause();
+    }
+
+    private void stopCameraPreview() {
         if (camera != null) {
             camera.stopPreview();
             preview.setCamera(null);
             camera.release();
             camera = null;
         }
-        super.onPause();
     }
 
     private void resetCam() {
