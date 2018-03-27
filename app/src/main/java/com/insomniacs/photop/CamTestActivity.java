@@ -139,7 +139,7 @@ public class CamTestActivity extends Activity {
         int numCams = Camera.getNumberOfCameras();
         if (numCams > 0) {
             try {
-                camera = Camera.open(Camera.CameraInfo.CAMERA_FACING_BACK);
+                camera = Camera.open(Camera.CameraInfo.CAMERA_FACING_FRONT);
                 camera.startPreview();
                 preview.setCamera(camera);
 
@@ -194,7 +194,7 @@ public class CamTestActivity extends Activity {
         public void onPictureTaken(byte[] data, Camera camera) {
 
             new SaveImageTask().execute(data);
-            resetCam();
+           // resetCam();
             //Log.d(TAG, "onPictureTaken - jpeg");
         }
     };
@@ -237,7 +237,9 @@ public class CamTestActivity extends Activity {
         protected void onPostExecute(File aVoid) {
             super.onPostExecute(aVoid);
             Bitmap bitmap = BitmapFactory.decodeFile(aVoid.getAbsolutePath());
-            image.setImageBitmap(bitmap);
+            Bitmap bb = ExifUtil.rotateBitmap(aVoid.getAbsolutePath() , bitmap);
+
+            image.setImageBitmap(bb);
         }
     }
 }

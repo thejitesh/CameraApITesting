@@ -6,6 +6,7 @@ package com.insomniacs.photop;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.PixelFormat;
 import android.hardware.Camera;
 import android.hardware.Camera.Size;
 import android.util.Log;
@@ -102,6 +103,11 @@ class Preview extends ViewGroup implements SurfaceHolder.Callback {
         try {
             if (mCamera != null) {
                 mCamera.setPreviewDisplay(holder);
+                Camera.Parameters params = mCamera.getParameters();
+                params.set("orientation", "portrait");
+                params.set("rotation", 270);
+                params.setPictureFormat(PixelFormat.JPEG);
+                mCamera.setParameters(params);
             }
         } catch (IOException exception) {
             Log.e(TAG, "IOException caused by setPreviewDisplay()", exception);
@@ -194,7 +200,7 @@ class Preview extends ViewGroup implements SurfaceHolder.Callback {
             parameters.setPreviewSize(mPreviewSize.width, mPreviewSize.height);
             requestLayout();
 
-            setCameraDisplayOrientation((Activity) context, Camera.CameraInfo.CAMERA_FACING_BACK, mCamera);
+            setCameraDisplayOrientation((Activity) context, Camera.CameraInfo.CAMERA_FACING_FRONT, mCamera);
 
             mCamera.setParameters(parameters);
             mCamera.startPreview();
