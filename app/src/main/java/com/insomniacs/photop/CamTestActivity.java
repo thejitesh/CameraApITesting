@@ -194,7 +194,8 @@ public class CamTestActivity extends Activity {
         public void onPictureTaken(byte[] data, Camera camera) {
 
             new SaveImageTask().execute(data);
-            resetCam();
+            //resetCam();
+            stopCameraPreview();
             //Log.d(TAG, "onPictureTaken - jpeg");
         }
     };
