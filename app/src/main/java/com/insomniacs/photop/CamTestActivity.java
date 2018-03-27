@@ -42,18 +42,13 @@ public class CamTestActivity extends Activity {
 
     private static final String TAG = "CamTestActivity";
     Preview preview;
-    Button buttonClick;
     Camera camera;
-    Activity act;
-    Context ctx;
-
     ImageView image;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        ctx = this;
-        act = this;
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -74,7 +69,7 @@ public class CamTestActivity extends Activity {
             }
         });
 
-        Toast.makeText(ctx, getString(R.string.take_photo_help), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.take_photo_help), Toast.LENGTH_LONG).show();
 
         //		buttonClick = (Button) findViewById(R.id.btnCapture);
         //
@@ -102,8 +97,8 @@ public class CamTestActivity extends Activity {
 
     @Override
     protected void onResume() {
-        super.onResume();
 
+        super.onResume();
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 50);
@@ -117,7 +112,6 @@ public class CamTestActivity extends Activity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 50) {
             openCamera();
-
         }
     }
 
@@ -128,14 +122,16 @@ public class CamTestActivity extends Activity {
                 camera = Camera.open(Camera.CameraInfo.CAMERA_FACING_BACK);
                 camera.startPreview();
                 preview.setCamera(camera);
+
             } catch (RuntimeException ex) {
-                Toast.makeText(ctx, getString(R.string.camera_not_found), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.camera_not_found), Toast.LENGTH_LONG).show();
             }
         }
     }
 
     @Override
     protected void onPause() {
+
         if (camera != null) {
             camera.stopPreview();
             preview.setCamera(null);
@@ -146,11 +142,13 @@ public class CamTestActivity extends Activity {
     }
 
     private void resetCam() {
+
         camera.startPreview();
         preview.setCamera(camera);
     }
 
     private void refreshGallery(File file) {
+
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         mediaScanIntent.setData(Uri.fromFile(file));
         sendBroadcast(mediaScanIntent);
