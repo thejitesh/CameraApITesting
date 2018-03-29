@@ -70,7 +70,13 @@ public class CamTestActivity extends Activity implements IOnFrameSelected {
 
             @Override
             public void onClick(View arg0) {
-                camera.takePicture(shutterCallback, rawCallback, jpegCallback);
+
+                camera.autoFocus(new Camera.AutoFocusCallback() {
+                    @Override
+                    public void onAutoFocus(boolean arg0, Camera arg1) {
+                        camera.takePicture(shutterCallback, rawCallback, jpegCallback);
+                    }
+                });
             }
         });
 
