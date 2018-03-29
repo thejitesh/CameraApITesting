@@ -29,6 +29,13 @@
     </FrameLayout>
 
     <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/frame_top_opl" />
+
+    <ImageView
         android:id="@+id/imgFragmeImage"
         android:layout_width="match_parent"
         android:layout_height="130dp"
