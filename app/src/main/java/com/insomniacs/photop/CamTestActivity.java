@@ -44,10 +44,10 @@ import java.util.ArrayList;
 public class CamTestActivity extends Activity implements IOnFrameSelected {
 
     private static final String TAG = "CamTestActivity";
-    Preview preview;
-    Camera camera;
-    CustomView image;
-    ImageView imgFragmeImage;
+    private Preview preview;
+    private Camera camera;
+    private CustomView image;
+    private ImageView imgFragmeImage;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,15 +55,14 @@ public class CamTestActivity extends Activity implements IOnFrameSelected {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         setContentView(R.layout.main_two);
-
 
         imgFragmeImage = findViewById(R.id.imgFragmeImage);
         image = findViewById(R.id.image);
         preview = new Preview(this, (SurfaceView) findViewById(R.id.surfaceView));
         preview.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-        ((FrameLayout) findViewById(R.id.layout)).addView(preview);
+        FrameLayout frameLayout = findViewById(R.id.layout);
+        frameLayout.addView(preview);
         preview.setKeepScreenOn(true);
 
         preview.setOnClickListener(new OnClickListener() {
@@ -80,48 +79,11 @@ public class CamTestActivity extends Activity implements IOnFrameSelected {
             }
         });
 
-        Toast.makeText(this, getString(R.string.take_photo_help), Toast.LENGTH_LONG).show();
-
-        //		buttonClick = (Button) findViewById(R.id.btnCapture);
-        //
-        //		buttonClick.setOnClickListener(new OnClickListener() {
-        //			public void onClick(View v) {
-        ////				preview.camera.takePicture(shutterCallback, rawCallback, jpegCallback);
-        //				camera.takePicture(shutterCallback, rawCallback, jpegCallback);
-        //			}
-        //		});
-        //
-        //		buttonClick.setOnLongClickListener(new OnLongClickListener(){
-        //			@Override
-        //			public boolean onLongClick(View arg0) {
-        //				camera.autoFocus(new AutoFocusCallback(){
-        //					@Override
-        //					public void onAutoFocus(boolean arg0, Camera arg1) {
-        //						//camera.takePicture(shutterCallback, rawCallback, jpegCallback);
-        //					}
-        //				});
-        //				return true;
-        //			}
-        //		});
-
-
         RecyclerView rvFrames = findViewById(R.id.rvFrames);
         AdapterTeamLogoFrame adapterTeamLogoFrame = new AdapterTeamLogoFrame(this);
         rvFrames.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         rvFrames.setAdapter(adapterTeamLogoFrame);
-
-//        Sons Of Pitches
-//        The Scorpion Squad
-//        Tandava Strotam
-//        Anonymous
-//        Scoring Willows
-//        Royal Jatts
-//        Beer Dose
-//        Sleepless Rangers.
-
-
         adapterTeamLogoFrame.setData(LogoFramesFactory.getList());
-
     }
 
     @Override
@@ -138,6 +100,7 @@ public class CamTestActivity extends Activity implements IOnFrameSelected {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 50) {
             openCamera();
@@ -145,6 +108,7 @@ public class CamTestActivity extends Activity implements IOnFrameSelected {
     }
 
     private void openCamera() {
+
         int numCams = Camera.getNumberOfCameras();
         if (numCams > 0) {
             try {
@@ -166,6 +130,7 @@ public class CamTestActivity extends Activity implements IOnFrameSelected {
     }
 
     private void stopCameraPreview() {
+
         if (camera != null) {
             camera.stopPreview();
             preview.setCamera(null);

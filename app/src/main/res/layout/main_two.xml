@@ -33,7 +33,7 @@
         android:layout_height="100dp"
         android:layout_alignParentTop="true"
         android:scaleType="fitXY"
-        android:src="@drawable/frame_top_opl" />
+        android:src="@drawable/frame_top_owl" />
 
     <ImageView
         android:id="@+id/imgFragmeImage"
