@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 /**
@@ -40,6 +42,9 @@ public class AdapterTeamLogoFrame extends RecyclerView.Adapter<AdapterTeamLogoFr
 
         ModelTeamLogoFrame modelTeamLogoFrame = logoFrames.get(position);
 
+        Picasso.get().load(modelTeamLogoFrame.teamAResId).into(holder.imgteamA);
+        Picasso.get().load(modelTeamLogoFrame.teamBResId).into(holder.imgteamB);
+
     }
 
     @Override
@@ -50,11 +55,14 @@ public class AdapterTeamLogoFrame extends RecyclerView.Adapter<AdapterTeamLogoFr
     class Holder extends RecyclerView.ViewHolder {
 
 
+        ImageView imgteamA;
+        ImageView imgteamB;
 
         public Holder(View itemView) {
 
             super(itemView);
-
+            imgteamA = (ImageView) itemView.findViewById(R.id.imgteamA);
+            imgteamB = (ImageView) itemView.findViewById(R.id.imgteamB);
         }
     }
 }

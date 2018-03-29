@@ -30,6 +30,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -38,12 +39,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class CamTestActivity extends Activity {
+public class CamTestActivity extends Activity implements IOnFrameSelected {
 
     private static final String TAG = "CamTestActivity";
     Preview preview;
     Camera camera;
     CustomView image;
+    ImageView imgFragmeImage;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class CamTestActivity extends Activity {
         setContentView(R.layout.main_two);
 
 
+        imgFragmeImage = findViewById(R.id.imgFragmeImage);
         image = findViewById(R.id.image);
         preview = new Preview(this, (SurfaceView) findViewById(R.id.surfaceView));
         preview.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
@@ -109,18 +112,7 @@ public class CamTestActivity extends Activity {
 //        Sleepless Rangers.
 
 
-        ArrayList<ModelTeamLogoFrame> modelTeamLogoFrames = new ArrayList<>();
-
-        modelTeamLogoFrames.add(new ModelTeamLogoFrame("Sons Of Pitches", "The Scorpion Squad", -1));
-        modelTeamLogoFrames.add(new ModelTeamLogoFrame("Sons Of Pitches", " Tandava Strotam", -1));
-        modelTeamLogoFrames.add(new ModelTeamLogoFrame("Sons Of Pitches", "Anonymous", -1));
-        modelTeamLogoFrames.add(new ModelTeamLogoFrame("Sons Of Pitches", "Scoring Willows", -1));
-        modelTeamLogoFrames.add(new ModelTeamLogoFrame("Sons Of Pitches", "Royal Jatts", -1));
-        modelTeamLogoFrames.add(new ModelTeamLogoFrame("Sons Of Pitches", "Beer Dose", -1));
-        modelTeamLogoFrames.add(new ModelTeamLogoFrame("Sons Of Pitches", "Sleepless Rangers", -1));
-
-        adapterTeamLogoFrame.setData(modelTeamLogoFrames);
-
+        adapterTeamLogoFrame.setData(LogoFramesFactory.getList());
 
     }
 
@@ -208,6 +200,11 @@ public class CamTestActivity extends Activity {
             //Log.d(TAG, "onPictureTaken - jpeg");
         }
     };
+
+    @Override
+    public void onFrameSelected(ModelTeamLogoFrame modelTeamLogoFrame) {
+
+    }
 
     private class SaveImageTask extends AsyncTask<byte[], Void, File> {
 
