@@ -191,20 +191,15 @@ public class CamTestActivity extends Activity implements IOnFrameSelected {
             // Write to SD Card
             try {
                 File sdCard = Environment.getExternalStorageDirectory();
-                File dir = new File(sdCard.getAbsolutePath() + "/camtest");
+                File dir = new File(sdCard.getAbsolutePath() + "/owl");
                 dir.mkdirs();
 
-                String fileName = String.format("%d.jpg", System.currentTimeMillis());
-                File outFile = new File(dir, fileName);
+                File outFile = new File(dir, Storage.getNextFileName());
 
                 outStream = new FileOutputStream(outFile);
                 outStream.write(data[0]);
                 outStream.flush();
                 outStream.close();
-
-                Log.d(TAG, "onPictureTaken - wrote bytes: " + data.length + " to " + outFile.getAbsolutePath());
-
-
                 refreshGallery(outFile);
                 return outFile;
             } catch (FileNotFoundException e) {
