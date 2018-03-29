@@ -33,6 +33,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -203,6 +205,9 @@ public class CamTestActivity extends Activity implements IOnFrameSelected {
 
     @Override
     public void onFrameSelected(ModelTeamLogoFrame modelTeamLogoFrame) {
+
+
+        Picasso.get().load(modelTeamLogoFrame.frameRes).into(imgFragmeImage);
 
     }
 

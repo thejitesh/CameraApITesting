@@ -31,8 +31,9 @@
     <ImageView
         android:id="@+id/imgFragmeImage"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_above="@+id/rvFrames" />
+        android:layout_height="130dp"
+        android:layout_above="@+id/rvFrames"
+        android:scaleType="fitXY" />
 
 
     <android.support.v7.widget.RecyclerView

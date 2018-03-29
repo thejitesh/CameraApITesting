@@ -20,10 +20,12 @@ import java.util.ArrayList;
 public class AdapterTeamLogoFrame extends RecyclerView.Adapter<AdapterTeamLogoFrame.Holder> {
 
     private Context context;
+    private IOnFrameSelected iOnFrameSelected;
     private ArrayList<ModelTeamLogoFrame> logoFrames = new ArrayList<>();
 
-    public AdapterTeamLogoFrame(Context context) {
-        this.context = context;
+    public AdapterTeamLogoFrame(Object object) {
+        this.context = (Context) object;
+        this.iOnFrameSelected = (IOnFrameSelected) object;
     }
 
     public void setData(ArrayList<ModelTeamLogoFrame> logoFrames) {
@@ -40,10 +42,17 @@ public class AdapterTeamLogoFrame extends RecyclerView.Adapter<AdapterTeamLogoFr
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
 
-        ModelTeamLogoFrame modelTeamLogoFrame = logoFrames.get(position);
+        final ModelTeamLogoFrame modelTeamLogoFrame = logoFrames.get(position);
 
         Picasso.get().load(modelTeamLogoFrame.teamAResId).into(holder.imgteamA);
         Picasso.get().load(modelTeamLogoFrame.teamBResId).into(holder.imgteamB);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iOnFrameSelected.onFrameSelected(modelTeamLogoFrame);
+            }
+        });
 
     }
 
