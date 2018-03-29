@@ -13,6 +13,7 @@ public class MyApplication extends Application {
         super.onCreate();
 
         Storage.init(this);
+        LogoFramesFactory.setUp();
 
     }
 }

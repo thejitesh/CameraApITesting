@@ -6,18 +6,21 @@ package com.insomniacs.photop;
 
 public class ModelTeamLogoFrame {
 
+    String id;
     String teamAName;
     String teamBName;
     int frameRes;
     int teamAResId;
     int teamBResId;
 
-    public ModelTeamLogoFrame(String teamAName,
+    public ModelTeamLogoFrame(String id,
+                              String teamAName,
                               String teamBName,
                               int frameRes,
                               int teamAResId,
                               int teamBResId) {
 
+        this.id = id;
         this.teamAName = teamAName;
         this.teamBName = teamBName;
         this.teamAResId = teamAResId;

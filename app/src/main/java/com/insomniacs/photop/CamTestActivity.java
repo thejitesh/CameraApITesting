@@ -8,8 +8,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
 import android.hardware.Camera.ShutterCallback;
@@ -22,7 +20,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -39,7 +36,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class CamTestActivity extends Activity implements IOnFrameSelected {
 
@@ -47,6 +43,8 @@ public class CamTestActivity extends Activity implements IOnFrameSelected {
     private Preview preview;
     private Camera camera;
     private ImageView imgFragmeImage;
+
+    ModelTeamLogoFrame currModelTeamLogoFrame;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -175,7 +173,7 @@ public class CamTestActivity extends Activity implements IOnFrameSelected {
     @Override
     public void onFrameSelected(ModelTeamLogoFrame modelTeamLogoFrame) {
 
-
+        currModelTeamLogoFrame = modelTeamLogoFrame;
         Picasso.get().load(modelTeamLogoFrame.frameRes).into(imgFragmeImage);
 
     }
@@ -219,7 +217,7 @@ public class CamTestActivity extends Activity implements IOnFrameSelected {
 //            image.setVisibility(View.VISIBLE);
 //            image.setBitmap(bb);
 
-            startActivity(ActivitySelfiePreview.getIntent(CamTestActivity.this, aVoid.getAbsolutePath()));
+            startActivity(ActivitySelfiePreview.getIntent(CamTestActivity.this, aVoid.getAbsolutePath(), currModelTeamLogoFrame != null ? currModelTeamLogoFrame.id : ""));
         }
     }
 }

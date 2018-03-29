@@ -24,7 +24,7 @@
             android:src="@drawable/frame_top_owl" />
 
         <ImageView
-            android:id="@+id/imgFragmeImage"
+            android:id="@+id/imgFrame"
             android:layout_width="match_parent"
             android:layout_height="130dp"
             android:layout_alignParentBottom="true"
