@@ -46,7 +46,6 @@ public class CamTestActivity extends Activity implements IOnFrameSelected {
     private static final String TAG = "CamTestActivity";
     private Preview preview;
     private Camera camera;
-    private CustomView image;
     private ImageView imgFragmeImage;
 
     @Override
@@ -58,7 +57,6 @@ public class CamTestActivity extends Activity implements IOnFrameSelected {
         setContentView(R.layout.main_two);
 
         imgFragmeImage = findViewById(R.id.imgFragmeImage);
-        image = findViewById(R.id.image);
         preview = new Preview(this, (SurfaceView) findViewById(R.id.surfaceView));
         preview.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         FrameLayout frameLayout = findViewById(R.id.layout);
@@ -215,11 +213,13 @@ public class CamTestActivity extends Activity implements IOnFrameSelected {
         protected void onPostExecute(File aVoid) {
 
             super.onPostExecute(aVoid);
-            Bitmap bitmap = BitmapFactory.decodeFile(aVoid.getAbsolutePath());
-            Bitmap bb = ExifUtil.rotateBitmap(aVoid.getAbsolutePath(), bitmap);
+//            Bitmap bitmap = BitmapFactory.decodeFile(aVoid.getAbsolutePath());
+//            Bitmap bb = ExifUtil.rotateBitmap(aVoid.getAbsolutePath(), bitmap);
+//
+//            image.setVisibility(View.VISIBLE);
+//            image.setBitmap(bb);
 
-            image.setVisibility(View.VISIBLE);
-            image.setBitmap(bb);
+            startActivity(ActivitySelfiePreview.getIntent(CamTestActivity.this, aVoid.getAbsolutePath()));
         }
     }
 }
