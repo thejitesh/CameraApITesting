@@ -70,6 +70,13 @@ public class ActivityCameraPreview extends AppCompatActivity implements IOnFrame
                 camera.autoFocus(new Camera.AutoFocusCallback() {
                     @Override
                     public void onAutoFocus(boolean arg0, Camera arg1) {
+
+                        if (currModelTeamLogoFrame == null) {
+                            Toast.makeText(ActivityCameraPreview.this, "Select Frame", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+
                         camera.takePicture(shutterCallback, rawCallback, jpegCallback);
                     }
                 });
