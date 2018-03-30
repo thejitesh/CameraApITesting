@@ -5,9 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,8 +13,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
-import com.insomniacs.AdapterThumbnailsFilter;
-import com.insomniacs.MyThumbnailItem;
 import com.squareup.picasso.Picasso;
 import com.zomato.photofilters.FilterPack;
 import com.zomato.photofilters.imageprocessors.Filter;
@@ -28,7 +24,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActivitySelfiePreview extends Activity implements ThumbnailCallback {
+public class ActivityFrameEditPreview extends Activity implements ThumbnailCallback {
 
     private static final String EXTRA_FILE_PATH = "EXTRA_FILE_PATH";
     private static final String EXTRA_MODEL_ID = "EXTRA_MODEL_ID";
@@ -44,7 +40,7 @@ public class ActivitySelfiePreview extends Activity implements ThumbnailCallback
 
     public static Intent getIntent(Context context, String path, String id) {
 
-        Intent intent = new Intent(context, ActivitySelfiePreview.class);
+        Intent intent = new Intent(context, ActivityFrameEditPreview.class);
         intent.putExtra(EXTRA_FILE_PATH, path);
         intent.putExtra(EXTRA_MODEL_ID, id);
         return intent;
@@ -99,7 +95,7 @@ public class ActivitySelfiePreview extends Activity implements ThumbnailCallback
 
                 Bitmap thumbImage = Bitmap.createScaledBitmap(bitmap, 150, 150, false);
                 ThumbnailsManager.clearThumbs();
-                List<Filter> filters = FilterPack.getFilterPack(ActivitySelfiePreview.this);
+                List<Filter> filters = FilterPack.getFilterPack(ActivityFrameEditPreview.this);
 
                 for (Filter filter : filters) {
                     MyThumbnailItem thumbnailItem = new MyThumbnailItem();
@@ -109,14 +105,14 @@ public class ActivitySelfiePreview extends Activity implements ThumbnailCallback
                     ThumbnailsManager.addThumb(thumbnailItem);
                 }
 
-                List<ThumbnailItem> thumbs = ThumbnailsManager.processThumbs(ActivitySelfiePreview.this);
+                List<ThumbnailItem> thumbs = ThumbnailsManager.processThumbs(ActivityFrameEditPreview.this);
                 List<MyThumbnailItem> mythumbs = new ArrayList<>();
                 for (ThumbnailItem thumbnailItem : thumbs) {
                     MyThumbnailItem myThumbnailItem = (MyThumbnailItem) thumbnailItem;
                     mythumbs.add(myThumbnailItem);
                 }
 
-                AdapterThumbnailsFilter adapter = new AdapterThumbnailsFilter(mythumbs, (ThumbnailCallback) ActivitySelfiePreview.this);
+                AdapterThumbnailsFilter adapter = new AdapterThumbnailsFilter(mythumbs, (ThumbnailCallback) ActivityFrameEditPreview.this);
                 rvThumbnailsFilter.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
             }

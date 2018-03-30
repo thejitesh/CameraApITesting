@@ -37,9 +37,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class CamTestActivity extends Activity implements IOnFrameSelected {
+public class ActivityCameraPreview extends Activity implements IOnFrameSelected {
 
-    private static final String TAG = "CamTestActivity";
+    private static final String TAG = "ActivityCameraPreview";
     private Preview preview;
     private Camera camera;
     private ImageView imgFragmeImage;
@@ -217,7 +217,7 @@ public class CamTestActivity extends Activity implements IOnFrameSelected {
 //            image.setVisibility(View.VISIBLE);
 //            image.setBitmap(bb);
 
-            startActivity(ActivitySelfiePreview.getIntent(CamTestActivity.this, aVoid.getAbsolutePath(), currModelTeamLogoFrame != null ? currModelTeamLogoFrame.id : ""));
+            startActivity(ActivityFrameEditPreview.getIntent(ActivityCameraPreview.this, aVoid.getAbsolutePath(), currModelTeamLogoFrame != null ? currModelTeamLogoFrame.id : ""));
         }
     }
 }

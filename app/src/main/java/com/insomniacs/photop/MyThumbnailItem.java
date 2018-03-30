@@ -1,4 +1,4 @@
-package com.insomniacs;
+package com.insomniacs.photop;
 
 import com.zomato.photofilters.utils.ThumbnailItem;
 
