@@ -18,6 +18,7 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.SurfaceView;
@@ -37,7 +38,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class ActivityCameraPreview extends Activity implements IOnFrameSelected {
+public class ActivityCameraPreview extends AppCompatActivity implements IOnFrameSelected {
 
     private static final String TAG = "ActivityCameraPreview";
     private Preview preview;

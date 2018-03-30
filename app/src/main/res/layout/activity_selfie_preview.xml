@@ -1,52 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp">
+        android:background="#efebeb">
 
         <ImageView
-            android:id="@+id/imgPreview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY" />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_alignParentTop="true"
-            android:scaleType="fitXY"
-            android:src="@drawable/frame_top_owl" />
-
-        <ImageView
-            android:id="@+id/imgFrame"
-            android:layout_width="match_parent"
-            android:layout_height="130dp"
-            android:layout_alignParentBottom="true"
-            android:scaleType="fitXY" />
+            android:id="@+id/imgCross"
+            android:layout_width="37dp"
+            android:layout_height="37dp"
+            android:layout_marginStart="8dp"
+            android:tint="#000000"
+            android:padding="12dp"
+            app:srcCompat="@drawable/svg_close" />
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/rlFilterList"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:background="#000000">
+        android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvThumbnailsFilter"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:clipToPadding="false" />
+            android:layout_marginBottom="80dp">
 
+            <ImageView
+                android:id="@+id/imgPreview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_alignParentTop="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/frame_top_owl" />
+
+            <ImageView
+                android:id="@+id/imgFrame"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:layout_alignParentBottom="true"
+                android:scaleType="fitXY" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlFilterList"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:background="#000000">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvThumbnailsFilter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:clipToPadding="false" />
+
+        </RelativeLayout>
     </RelativeLayout>
-</RelativeLayout>
+
+</LinearLayout>
+

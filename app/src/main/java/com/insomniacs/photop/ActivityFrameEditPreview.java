@@ -7,8 +7,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -24,7 +26,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActivityFrameEditPreview extends Activity implements ThumbnailCallback {
+public class ActivityFrameEditPreview extends AppCompatActivity implements ThumbnailCallback {
 
     private static final String EXTRA_FILE_PATH = "EXTRA_FILE_PATH";
     private static final String EXTRA_MODEL_ID = "EXTRA_MODEL_ID";
@@ -33,6 +35,7 @@ public class ActivityFrameEditPreview extends Activity implements ThumbnailCallb
     ImageView imgFrame;
     RecyclerView rvThumbnailsFilter;
     Bitmap bitmap;
+    ImageView imgCross;
 
     static {
         System.loadLibrary("NativeImageProcessor");
@@ -54,11 +57,24 @@ public class ActivityFrameEditPreview extends Activity implements ThumbnailCallb
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_selfie_preview);
 
+        imgCross = findViewById(R.id.imgCross);
         imgPreview = findViewById(R.id.imgPreview);
         imgFrame = findViewById(R.id.imgFrame);
         rvThumbnailsFilter = findViewById(R.id.rvThumbnailsFilter);
-        Intent intent = getIntent();
 
+        imgCross.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ThumbnailsManager.clearThumbs();
+                if (bitmap != null) {
+                    bitmap.recycle();
+                }
+                finish();
+            }
+        });
+
+
+        Intent intent = getIntent();
         if (intent != null) {
 
             String path = intent.getStringExtra(EXTRA_FILE_PATH);
