@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.zomato.photofilters.FilterPack;
@@ -26,7 +27,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActivityFrameEditPreview extends AppCompatActivity implements ThumbnailCallback {
+public class ActivityFrameEditPreview extends AppCompatActivity implements ThumbnailCallback, View.OnClickListener {
 
     private static final String EXTRA_FILE_PATH = "EXTRA_FILE_PATH";
     private static final String EXTRA_MODEL_ID = "EXTRA_MODEL_ID";
@@ -35,7 +36,6 @@ public class ActivityFrameEditPreview extends AppCompatActivity implements Thumb
     ImageView imgFrame;
     RecyclerView rvThumbnailsFilter;
     Bitmap bitmap;
-    ImageView imgCross;
 
     static {
         System.loadLibrary("NativeImageProcessor");
@@ -57,21 +57,14 @@ public class ActivityFrameEditPreview extends AppCompatActivity implements Thumb
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_selfie_preview);
 
-        imgCross = findViewById(R.id.imgCross);
         imgPreview = findViewById(R.id.imgPreview);
         imgFrame = findViewById(R.id.imgFrame);
         rvThumbnailsFilter = findViewById(R.id.rvThumbnailsFilter);
 
-        imgCross.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ThumbnailsManager.clearThumbs();
-                if (bitmap != null) {
-                    bitmap.recycle();
-                }
-                finish();
-            }
-        });
+        ImageView imgCross = findViewById(R.id.imgCross);
+        imgCross.setOnClickListener(this);
+        TextView tvShare = findViewById(R.id.tvShare);
+        tvShare.setOnClickListener(this);
 
 
         Intent intent = getIntent();
@@ -150,4 +143,21 @@ public class ActivityFrameEditPreview extends AppCompatActivity implements Thumb
         // third.recycle();
     }
 
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+            case R.id.imgCross:
+                ThumbnailsManager.clearThumbs();
+                if (bitmap != null) {
+                    bitmap.recycle();
+                }
+                finish();
+                break;
+
+            case R.id.tvShare:
+
+                break;
+        }
+    }
 }
