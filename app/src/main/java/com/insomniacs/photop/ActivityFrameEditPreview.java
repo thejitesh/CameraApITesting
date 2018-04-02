@@ -3,10 +3,13 @@ package com.insomniacs.photop;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,8 +18,10 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.insomniacs.photop.utils.Util;
 import com.squareup.picasso.Picasso;
@@ -30,7 +35,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActivityFrameEditPreview extends AppCompatActivity implements ThumbnailCallback, View.OnClickListener {
+public class ActivityFrameEditPreview extends AppCompatActivity implements ThumbnailCallback, View.OnClickListener, IOnFileSaveSuccessFul {
 
     private static final String EXTRA_FILE_PATH = "EXTRA_FILE_PATH";
     private static final String EXTRA_MODEL_ID = "EXTRA_MODEL_ID";
@@ -40,6 +45,7 @@ public class ActivityFrameEditPreview extends AppCompatActivity implements Thumb
     RecyclerView rvThumbnailsFilter;
     Bitmap bitmap;
     RelativeLayout rlPreviewContainer;
+    ProgressBar progressBar;
 
     static {
         System.loadLibrary("NativeImageProcessor");
@@ -61,6 +67,7 @@ public class ActivityFrameEditPreview extends AppCompatActivity implements Thumb
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_selfie_preview);
 
+        progressBar = findViewById(R.id.progressBar);
         imgPreview = findViewById(R.id.imgPreview);
         imgFrame = findViewById(R.id.imgFrame);
         rvThumbnailsFilter = findViewById(R.id.rvThumbnailsFilter);
@@ -151,6 +158,7 @@ public class ActivityFrameEditPreview extends AppCompatActivity implements Thumb
     public void onClick(View v) {
 
         switch (v.getId()) {
+
             case R.id.imgCross:
                 ThumbnailsManager.clearThumbs();
                 if (bitmap != null) {
@@ -160,9 +168,49 @@ public class ActivityFrameEditPreview extends AppCompatActivity implements Thumb
                 break;
 
             case R.id.tvShare:
-                Log.d("", "");
-                Util.TakeScreenshot(rlPreviewContainer, this);
+                showLoader();
+
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ActivityFrameEditPreview.this);
+                int nu = preferences.getInt("image_num", 0);
+                nu++;
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putInt("image_num", nu);
+                editor.apply();
+                String picId = String.valueOf(nu);
+                String imageFileName = "MyImage" + picId + ".jpeg";
+                Util.TakeScreenshot(rlPreviewContainer, this, imageFileName);
+
                 break;
         }
+    }
+
+    public void showLoader() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    public void hideLoader() {
+        progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onFileSaveSuccessFull(File file) {
+
+        hideLoader();
+        Uri imageUri = Uri.fromFile(file);
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "Hello");
+        shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+        shareIntent.setType("image/jpeg");
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        startActivity(Intent.createChooser(shareIntent, "send"));
+
+    }
+
+    @Override
+    public void onFileSaveUnSuccessFull() {
+
+        Toast.makeText(this, "Shairing Failed", Toast.LENGTH_SHORT).show();
+
     }
 }

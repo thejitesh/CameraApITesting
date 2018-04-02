@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.insomniacs.photop.IOnFileSaveSuccessFul;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -25,60 +27,84 @@ public class Util {
 
     private static final String TAG = "PROBLEM";
 
-    public static void TakeScreenshot(View CamView, Context context) {
+    public static void TakeScreenshot(View CamView, Object object , String imageFileName) {
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        int nu = preferences.getInt("image_num", 0);
-        nu++;
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt("image_num", nu);
-        editor.commit();
-        CamView.setDrawingCacheEnabled(true);
-        CamView.buildDrawingCache(true);
-        Bitmap bmp = Bitmap.createBitmap(CamView.getDrawingCache());
-        CamView.setDrawingCacheEnabled(false);
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 100, bos);
-        byte[] bitmapdata = bos.toByteArray();
-        ByteArrayInputStream fis2 = new ByteArrayInputStream(bitmapdata);
-
-        String picId = String.valueOf(nu);
-        String myfile = "MyImage" + picId +".jpeg";
-
-      //  storeBitmap(bmp, myfile);
-
-        File dir_image = new File(Environment.getExternalStorageDirectory() +
-                File.separator + "My Custom Folder");
-        dir_image.mkdirs();
-
-        try {
-            File tmpFile = new File(dir_image, myfile);
-            FileOutputStream fos = new FileOutputStream(tmpFile);
-
-            byte[] buf = new byte[1024];
-            int len;
-            while ((len = fis2.read(buf)) > 0) {
-                fos.write(buf, 0, len);
-            }
-            fis2.close();
-            fos.close();
-
-            Toast.makeText(context,
-                    "The file is saved at :/My Custom Folder/" + "MyImage" + picId + ".jpeg", Toast.LENGTH_LONG).show();
-
-//            bmp1 = null;
-//            camera_image.setImageBitmap(bmp1);
-//            camera.startPreview();
-//            button1.setClickable(true);
-//            button1.setVisibility(View.VISIBLE);//<----UNHIDE HER
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        SaveAsync saveAsync = new SaveAsync();
+        saveAsync.execute(CamView, object , imageFileName);
 
     }
+
+
+    static class SaveAsync extends AsyncTask<Object, Void, File> {
+
+        IOnFileSaveSuccessFul iOnFileSaveSuccessFul;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected File doInBackground(Object... voids) {
+
+
+            View CamView = (View) voids[0];
+            Context context = (Context) voids[1];
+            iOnFileSaveSuccessFul = (IOnFileSaveSuccessFul) (Context) voids[1];
+            String imageFileName = (String) voids[2];
+
+
+            CamView.setDrawingCacheEnabled(true);
+            CamView.buildDrawingCache(true);
+            Bitmap bmp = Bitmap.createBitmap(CamView.getDrawingCache());
+            CamView.setDrawingCacheEnabled(false);
+
+            File tmpFile = null;
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            bmp.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+            byte[] bitmapdata = bos.toByteArray();
+            ByteArrayInputStream fis2 = new ByteArrayInputStream(bitmapdata);
+
+
+            //  storeBitmap(bmp, myfile);
+
+            File dir_image = new File(Environment.getExternalStorageDirectory() + File.separator + "My Custom Folder");
+            dir_image.mkdirs();
+
+            try {
+
+                tmpFile = new File(dir_image, imageFileName);
+
+                SaveAsync saveAsync = new SaveAsync();
+                saveAsync.equals(tmpFile);
+
+                FileOutputStream fos = new FileOutputStream(tmpFile);
+
+                byte[] buf = new byte[1024];
+                int len;
+                while ((len = fis2.read(buf)) > 0) {
+                    fos.write(buf, 0, len);
+                }
+                fis2.close();
+                fos.close();
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                iOnFileSaveSuccessFul.onFileSaveUnSuccessFull();
+            }
+
+
+            return tmpFile;
+        }
+
+        @Override
+        protected void onPostExecute(File aVoid) {
+            super.onPostExecute(aVoid);
+            iOnFileSaveSuccessFul.onFileSaveSuccessFull(aVoid);
+        }
+    }
+
 
     public static void storeBitmap(final Bitmap bitmap, final String fileUniqueName) {
         if (!isExternalStorageWritable()) {
