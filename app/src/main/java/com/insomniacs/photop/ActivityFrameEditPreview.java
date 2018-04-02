@@ -15,8 +15,10 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.insomniacs.photop.utils.Util;
 import com.squareup.picasso.Picasso;
 import com.zomato.photofilters.FilterPack;
 import com.zomato.photofilters.imageprocessors.Filter;
@@ -37,6 +39,7 @@ public class ActivityFrameEditPreview extends AppCompatActivity implements Thumb
     ImageView imgFrame;
     RecyclerView rvThumbnailsFilter;
     Bitmap bitmap;
+    RelativeLayout rlPreviewContainer;
 
     static {
         System.loadLibrary("NativeImageProcessor");
@@ -61,7 +64,7 @@ public class ActivityFrameEditPreview extends AppCompatActivity implements Thumb
         imgPreview = findViewById(R.id.imgPreview);
         imgFrame = findViewById(R.id.imgFrame);
         rvThumbnailsFilter = findViewById(R.id.rvThumbnailsFilter);
-
+        rlPreviewContainer = findViewById(R.id.rlPreviewContainer);
         ImageView imgCross = findViewById(R.id.imgCross);
         imgCross.setOnClickListener(this);
         TextView tvShare = findViewById(R.id.tvShare);
@@ -157,7 +160,8 @@ public class ActivityFrameEditPreview extends AppCompatActivity implements Thumb
                 break;
 
             case R.id.tvShare:
-                Log.d("","");
+                Log.d("", "");
+                Util.TakeScreenshot(rlPreviewContainer, this);
                 break;
         }
     }
