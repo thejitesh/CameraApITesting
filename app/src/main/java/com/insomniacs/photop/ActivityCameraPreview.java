@@ -25,6 +25,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
@@ -46,6 +47,8 @@ public class ActivityCameraPreview extends AppCompatActivity implements IOnFrame
     private Camera camera;
     private ImageView imgFragmeImage;
     private ModelTeamLogoFrame currModelTeamLogoFrame;
+    SurfaceView surfaceView;
+    FrameLayout frameLayout;
 
 
     public static Intent getIntent(Context context) {
@@ -64,9 +67,20 @@ public class ActivityCameraPreview extends AppCompatActivity implements IOnFrame
         setContentView(R.layout.main_two);
 
         imgFragmeImage = findViewById(R.id.imgFragmeImage);
-        preview = new Preview(this, (SurfaceView) findViewById(R.id.surfaceView));
+        surfaceView = (SurfaceView) findViewById(R.id.surfaceView);
+        //setUpPreview();
+
+        RecyclerView rvFrames = findViewById(R.id.rvFrames);
+        AdapterTeamLogoFrame adapterTeamLogoFrame = new AdapterTeamLogoFrame(this);
+        rvFrames.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        rvFrames.setAdapter(adapterTeamLogoFrame);
+        adapterTeamLogoFrame.setData(LogoFramesFactory.getList());
+    }
+
+    private void setUpPreview() {
+        preview = new Preview(this, surfaceView);
         preview.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-        FrameLayout frameLayout = findViewById(R.id.layout);
+        frameLayout = findViewById(R.id.layout);
         frameLayout.addView(preview);
         preview.setKeepScreenOn(true);
 
@@ -90,19 +104,16 @@ public class ActivityCameraPreview extends AppCompatActivity implements IOnFrame
                 });
             }
         });
-
-        RecyclerView rvFrames = findViewById(R.id.rvFrames);
-        AdapterTeamLogoFrame adapterTeamLogoFrame = new AdapterTeamLogoFrame(this);
-        rvFrames.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        rvFrames.setAdapter(adapterTeamLogoFrame);
-        adapterTeamLogoFrame.setData(LogoFramesFactory.getList());
     }
 
     @Override
     protected void onResume() {
 
         super.onResume();
+        setUpPreview();
         openCamera();
+        surfaceView.setVisibility(View.VISIBLE);
+
     }
 
     private void openCamera() {
@@ -126,6 +137,8 @@ public class ActivityCameraPreview extends AppCompatActivity implements IOnFrame
     @Override
     protected void onPause() {
 
+        frameLayout.removeView(preview);
+        surfaceView.setVisibility(View.GONE);
         stopCameraPreview();
         super.onPause();
     }

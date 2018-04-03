@@ -71,6 +71,7 @@ class Preview extends ViewGroup implements SurfaceHolder.Callback {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
+
         if (changed && getChildCount() > 0) {
             final View child = getChildAt(0);
 
@@ -118,6 +119,7 @@ class Preview extends ViewGroup implements SurfaceHolder.Callback {
         // Surface will be destroyed when we return, so stop the preview.
         if (mCamera != null) {
             mCamera.stopPreview();
+            mHolder.removeCallback(this);
         }
     }
 
