@@ -42,7 +42,7 @@ import javax.microedition.khronos.egl.EGLDisplay;
 /**
  * Utility class that deals with operations with an ImageView.
  */
-final class BitmapUtils {
+final public class BitmapUtils {
 
     static final Rect EMPTY_RECT = new Rect();
 
@@ -921,4 +921,25 @@ final class BitmapUtils {
         }
     }
     // endregion
+
+
+    public static Bitmap fixMirrorImage(Bitmap bitmap) {
+
+        try {
+            Matrix matrix = new Matrix();
+            matrix.setScale(-1, 1);
+            try {
+                Bitmap oriented = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+                bitmap.recycle();
+                return oriented;
+            } catch (OutOfMemoryError e) {
+                e.printStackTrace();
+                return bitmap;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return bitmap;
+    }
 }

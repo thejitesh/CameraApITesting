@@ -22,6 +22,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -85,32 +87,38 @@ public class ActivityCameraPreview extends AppCompatActivity implements IOnFrame
         frameLayout = findViewById(R.id.layout);
         frameLayout.addView(preview);
         preview.setKeepScreenOn(true);
+    }
 
-        preview.setOnClickListener(new OnClickListener() {
 
-            @Override
-            public void onClick(View arg0) {
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
 
-                camera.autoFocus(new Camera.AutoFocusCallback() {
-                    @Override
-                    public void onAutoFocus(boolean arg0, Camera arg1) {
+        if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) || (keyCode == KeyEvent.KEYCODE_VOLUME_UP)) {
 
-                        if (currModelTeamLogoFrame == null) {
-                            Toast.makeText(ActivityCameraPreview.this, "Select Frame", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
 
-                        shutterCallback = new ShutterCallback() {
-                            @Override
-                            public void onShutter() {
-                            }
-                        };
+            camera.autoFocus(new Camera.AutoFocusCallback() {
+                @Override
+                public void onAutoFocus(boolean arg0, Camera arg1) {
 
-                        camera.takePicture(shutterCallback, rawCallback, jpegCallback);
+                    if (currModelTeamLogoFrame == null) {
+                        Toast.makeText(ActivityCameraPreview.this, "Select Frame", Toast.LENGTH_SHORT).show();
+                        return;
                     }
-                });
-            }
-        });
+
+                    shutterCallback = new ShutterCallback() {
+                        @Override
+                        public void onShutter() {
+                        }
+                    };
+
+                    camera.takePicture(shutterCallback, rawCallback, jpegCallback);
+                }
+            });
+
+
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override

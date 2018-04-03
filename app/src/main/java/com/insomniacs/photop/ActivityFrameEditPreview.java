@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.insomniacs.photop.utils.BitmapUtils;
 import com.insomniacs.photop.utils.Util;
 import com.squareup.picasso.Picasso;
 import com.zomato.photofilters.FilterPack;
@@ -86,15 +88,12 @@ public class ActivityFrameEditPreview extends AppCompatActivity implements Thumb
             String id = intent.getStringExtra(EXTRA_MODEL_ID);
 
             File file = new File(path);
-            Picasso.get().load(file).into(imgPreview);
-
             ModelTeamLogoFrame modelTeamLogoFrame = LogoFramesFactory.getModelBasedOnId(id);
             Picasso.get().load(modelTeamLogoFrame.frameRes).into(imgFrame);
 
-
-            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-            bitmap = BitmapFactory.decodeFile(file.getAbsolutePath(), bmOptions);
-
+            Bitmap bitmapMirrored = BitmapFactory.decodeFile(file.getAbsolutePath());
+            bitmap = BitmapUtils.fixMirrorImage(bitmapMirrored);
+            imgPreview.setImageBitmap(bitmap);
             initHorizontalList();
 
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ActivityFrameEditPreview.this);
