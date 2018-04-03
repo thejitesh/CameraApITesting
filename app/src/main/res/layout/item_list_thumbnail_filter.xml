@@ -8,6 +8,7 @@
         android:id="@+id/thumbnail"
         android:layout_width="75dp"
         android:layout_height="75dp"
+        android:scaleType="centerCrop"
         android:paddingLeft="8dp"
         android:paddingRight="8dp" />
 
