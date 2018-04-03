@@ -27,10 +27,17 @@ public class Util {
 
     private static final String TAG = "PROBLEM";
 
-    public static void TakeScreenshot(View CamView, Object object , String imageFileName) {
+    public static void TakeScreenshot(View CamView, Object object, String imageFileName) {
+
+
+        CamView.setDrawingCacheEnabled(true);
+        CamView.buildDrawingCache(true);
+        Bitmap bmp = Bitmap.createBitmap(CamView.getDrawingCache());
+        CamView.setDrawingCacheEnabled(false);
+
 
         SaveAsync saveAsync = new SaveAsync();
-        saveAsync.execute(CamView, object , imageFileName);
+        saveAsync.execute(bmp, object, imageFileName);
 
     }
 
@@ -47,17 +54,10 @@ public class Util {
         @Override
         protected File doInBackground(Object... voids) {
 
-
-            View CamView = (View) voids[0];
+            Bitmap bmp = (Bitmap) voids[0];
             Context context = (Context) voids[1];
             iOnFileSaveSuccessFul = (IOnFileSaveSuccessFul) (Context) voids[1];
             String imageFileName = (String) voids[2];
-
-
-            CamView.setDrawingCacheEnabled(true);
-            CamView.buildDrawingCache(true);
-            Bitmap bmp = Bitmap.createBitmap(CamView.getDrawingCache());
-            CamView.setDrawingCacheEnabled(false);
 
             File tmpFile = null;
             ByteArrayOutputStream bos = new ByteArrayOutputStream();

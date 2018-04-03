@@ -27,7 +27,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ActivityFrameEditPreview"></activity>
+        <activity android:name=".ActivityFrameEditPreview" />
+        <activity android:name=".Test.ActivityTest">
+
+        </activity>
     </application>
 
 </manifest>

@@ -46,6 +46,7 @@ public class ActivityFrameEditPreview extends AppCompatActivity implements Thumb
     Bitmap bitmap;
     RelativeLayout rlPreviewContainer;
     ProgressBar progressBar;
+    String imageFileName;
 
     static {
         System.loadLibrary("NativeImageProcessor");
@@ -95,6 +96,16 @@ public class ActivityFrameEditPreview extends AppCompatActivity implements Thumb
             bitmap = BitmapFactory.decodeFile(file.getAbsolutePath(), bmOptions);
 
             initHorizontalList();
+
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ActivityFrameEditPreview.this);
+            int nu = preferences.getInt("image_num", 0);
+            nu++;
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putInt("image_num", nu);
+            editor.apply();
+            String picId = String.valueOf(nu);
+            imageFileName = "MyImage" + picId + ".jpeg";
+
         }
     }
 
@@ -168,16 +179,8 @@ public class ActivityFrameEditPreview extends AppCompatActivity implements Thumb
                 break;
 
             case R.id.tvShare:
-                showLoader();
 
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ActivityFrameEditPreview.this);
-                int nu = preferences.getInt("image_num", 0);
-                nu++;
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putInt("image_num", nu);
-                editor.apply();
-                String picId = String.valueOf(nu);
-                String imageFileName = "MyImage" + picId + ".jpeg";
+                showLoader();
                 Util.TakeScreenshot(rlPreviewContainer, this, imageFileName);
 
                 break;
