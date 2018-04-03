@@ -6,6 +6,7 @@ package com.insomniacs.photop;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
@@ -44,8 +45,15 @@ public class ActivityCameraPreview extends AppCompatActivity implements IOnFrame
     private Preview preview;
     private Camera camera;
     private ImageView imgFragmeImage;
+    private ModelTeamLogoFrame currModelTeamLogoFrame;
 
-    ModelTeamLogoFrame currModelTeamLogoFrame;
+
+    public static Intent getIntent(Context context) {
+
+        Intent intent = new Intent(context, ActivityCameraPreview.class);
+        return intent;
+    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -113,6 +121,9 @@ public class ActivityCameraPreview extends AppCompatActivity implements IOnFrame
 
     private void openCamera() {
 
+        if (camera != null) {
+            return;
+        }
         int numCams = Camera.getNumberOfCameras();
         if (numCams > 0) {
             try {

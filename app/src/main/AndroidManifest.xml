@@ -20,16 +20,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".ActivityCameraPreview">
+        <activity android:name=".ActivityCameraPreview"></activity>
+        <activity android:name=".ActivityFrameEditPreview" />
+        <activity android:name=".Test.ActivityTest"></activity>
+        <activity android:name=".ActivitySplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".ActivityFrameEditPreview" />
-        <activity android:name=".Test.ActivityTest">
-
         </activity>
     </application>
 
