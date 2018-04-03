@@ -102,21 +102,7 @@ public class ActivityCameraPreview extends AppCompatActivity implements IOnFrame
     protected void onResume() {
 
         super.onResume();
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 50);
-        } else {
-            openCamera();
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 50) {
-            openCamera();
-        }
+        openCamera();
     }
 
     private void openCamera() {
