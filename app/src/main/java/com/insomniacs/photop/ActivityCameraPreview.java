@@ -49,6 +49,7 @@ public class ActivityCameraPreview extends AppCompatActivity implements IOnFrame
     private ModelTeamLogoFrame currModelTeamLogoFrame;
     SurfaceView surfaceView;
     FrameLayout frameLayout;
+    ShutterCallback shutterCallback;
 
 
     public static Intent getIntent(Context context) {
@@ -78,6 +79,7 @@ public class ActivityCameraPreview extends AppCompatActivity implements IOnFrame
     }
 
     private void setUpPreview() {
+
         preview = new Preview(this, surfaceView);
         preview.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         frameLayout = findViewById(R.id.layout);
@@ -98,6 +100,11 @@ public class ActivityCameraPreview extends AppCompatActivity implements IOnFrame
                             return;
                         }
 
+                        shutterCallback = new ShutterCallback() {
+                            @Override
+                            public void onShutter() {
+                            }
+                        };
 
                         camera.takePicture(shutterCallback, rawCallback, jpegCallback);
                     }
@@ -137,10 +144,10 @@ public class ActivityCameraPreview extends AppCompatActivity implements IOnFrame
     @Override
     protected void onPause() {
 
+        super.onPause();
         frameLayout.removeView(preview);
         surfaceView.setVisibility(View.GONE);
         stopCameraPreview();
-        super.onPause();
     }
 
     private void stopCameraPreview() {
@@ -166,15 +173,14 @@ public class ActivityCameraPreview extends AppCompatActivity implements IOnFrame
         sendBroadcast(mediaScanIntent);
     }
 
-    ShutterCallback shutterCallback = new ShutterCallback() {
-        public void onShutter() {
-            //			 Log.d(TAG, "onShutter'd");
-        }
-    };
+//    ShutterCallback shutterCallback = new ShutterCallback() {
+//        public void onShutter() {
+//        }
+//    };
 
     PictureCallback rawCallback = new PictureCallback() {
         public void onPictureTaken(byte[] data, Camera camera) {
-            //			 Log.d(TAG, "onPictureTaken - raw");
+
         }
     };
 
