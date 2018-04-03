@@ -7,6 +7,7 @@
     android:background="#000000">
 
     <ImageView
+        android:id="@+id/imgOwl"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_centerInParent="true"

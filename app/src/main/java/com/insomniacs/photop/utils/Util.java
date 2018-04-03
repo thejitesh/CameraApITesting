@@ -74,9 +74,10 @@ public class Util {
             try {
 
                 tmpFile = new File(dir_image, imageFileName);
-
-                SaveAsync saveAsync = new SaveAsync();
-                saveAsync.equals(tmpFile);
+                if (tmpFile.exists()) {
+                    boolean isSuccess = tmpFile.delete();
+                    Log.d("", "");
+                }
 
                 FileOutputStream fos = new FileOutputStream(tmpFile);
 
@@ -86,8 +87,10 @@ public class Util {
                     fos.write(buf, 0, len);
                 }
                 fis2.close();
+
                 fos.close();
 
+                bmp.recycle();
 
             } catch (Exception e) {
                 e.printStackTrace();

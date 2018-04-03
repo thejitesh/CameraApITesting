@@ -10,13 +10,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class ActivitySplash extends AppCompatActivity {
 
-    private Handler handler;
-    private Runnable runnable;
+    private static final int REQ_CODE_PERMISSION = 1001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,35 +30,51 @@ public class ActivitySplash extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
-        runnable = new Runnable() {
-            @Override
-            public void run() {
 
+        Animation fadeIn = new AlphaAnimation(0, 1);
+        fadeIn.setInterpolator(new AccelerateDecelerateInterpolator()); //add this
+        fadeIn.setDuration(3000);
+
+        ImageView imgOwl = findViewById(R.id.imgOwl);
+        imgOwl.startAnimation(fadeIn);
+
+        fadeIn.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
                 checkForPermission();
             }
-        };
-        handler = new Handler();
-        handler.postDelayed(runnable, 3000);
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
+
+
     }
 
     private void checkForPermission() {
 
-        ArrayList<String> persmissionsList = new ArrayList<>();
+        ArrayList<String> permissionsList = new ArrayList<>();
         if (ContextCompat.checkSelfPermission(ActivitySplash.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            persmissionsList.add(Manifest.permission.CAMERA);
+            permissionsList.add(Manifest.permission.CAMERA);
         }
         if (ContextCompat.checkSelfPermission(ActivitySplash.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            persmissionsList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            permissionsList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
 
-        if (persmissionsList.isEmpty()) {
+        if (permissionsList.isEmpty()) {
+            finish();
             startActivity(ActivityCameraPreview.getIntent(ActivitySplash.this));
         } else {
-            String[] permissionsRequired = new String[persmissionsList.size()];
-            for (int i = 0; i < persmissionsList.size(); i++) {
-                permissionsRequired[i] = persmissionsList.get(i);
+            String[] permissionsRequired = new String[permissionsList.size()];
+            for (int i = 0; i < permissionsList.size(); i++) {
+                permissionsRequired[i] = permissionsList.get(i);
             }
-            ActivityCompat.requestPermissions(ActivitySplash.this, permissionsRequired, 50);
+            ActivityCompat.requestPermissions(ActivitySplash.this, permissionsRequired, REQ_CODE_PERMISSION);
         }
     }
 
@@ -62,7 +83,7 @@ public class ActivitySplash extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 50) {
+        if (requestCode == REQ_CODE_PERMISSION) {
             checkForPermission();
         }
     }
