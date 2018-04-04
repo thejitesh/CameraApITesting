@@ -1,23 +1,19 @@
 package com.insomniacs.photop.utils;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Environment;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.ProgressBar;
 
 import com.insomniacs.photop.IOnFileSaveSuccessFul;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 
 /**
  * Created by INSODROID1 on 23-03-2018.
@@ -27,7 +23,7 @@ public class Util {
 
     private static final String TAG = "PROBLEM";
 
-    public static void TakeScreenshot(View CamView, Object object, String imageFileName) {
+    public static void TakeScreenshot(ProgressBar progressBar, View CamView, Object object, String imageFileName) {
 
 
         CamView.setDrawingCacheEnabled(true);
@@ -35,12 +31,64 @@ public class Util {
         Bitmap bmp = Bitmap.createBitmap(CamView.getDrawingCache());
         CamView.setDrawingCacheEnabled(false);
 
-
+        if (progressBar != null) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
         SaveAsync saveAsync = new SaveAsync();
         saveAsync.execute(bmp, object, imageFileName);
 
     }
 
+    public static void storeBitmap(final Bitmap bitmap, final String fileUniqueName) {
+        if (!isExternalStorageWritable()) {
+            Log.e(TAG, "External Storage is not Available or Writable!");
+            return;
+        }
+
+        new AsyncTask<Void, Void, File>() {
+            @Override
+            protected File doInBackground(Void... params) {
+                File file = null;
+                try {
+                    file = getOutputMediaFile(fileUniqueName);
+                    file.createNewFile();
+                    FileOutputStream ostream = new FileOutputStream(file);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, ostream);
+                    ostream.close();
+                } catch (Exception e) {
+                    Log.e(TAG, "External Storage problem");
+                    e.printStackTrace();
+                }
+                return file;
+            }
+        }.execute();
+    }
+
+    public static boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        return Environment.MEDIA_MOUNTED.equals(state);
+    }
+
+    public static File getOutputMediaFile(String fileUniqueName) {
+        // To be safe, you should check that the SDCard is mounted
+        // using Environment.getExternalStorageState() before doing this.
+        File mediaStorageDir = new File(Environment.getExternalStorageDirectory() +
+                File.separator + "My Custom Folder");
+
+        // This location works best if you want the created images to be shared
+        // between applications and persist after your app has been uninstalled.
+
+        // Create the storage directory if it does not exist
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                return null;
+            }
+        }
+        // Create a media file name
+        String mImageName = fileUniqueName + ".jpg";
+        File mediaFile = new File(mediaStorageDir.getPath() + File.separator + mImageName);
+        return mediaFile;
+    }
 
     static class SaveAsync extends AsyncTask<Object, Void, File> {
 
@@ -106,58 +154,5 @@ public class Util {
             super.onPostExecute(aVoid);
             iOnFileSaveSuccessFul.onFileSaveSuccessFull(aVoid);
         }
-    }
-
-
-    public static void storeBitmap(final Bitmap bitmap, final String fileUniqueName) {
-        if (!isExternalStorageWritable()) {
-            Log.e(TAG, "External Storage is not Available or Writable!");
-            return;
-        }
-
-        new AsyncTask<Void, Void, File>() {
-            @Override
-            protected File doInBackground(Void... params) {
-                File file = null;
-                try {
-                    file = getOutputMediaFile(fileUniqueName);
-                    file.createNewFile();
-                    FileOutputStream ostream = new FileOutputStream(file);
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, ostream);
-                    ostream.close();
-                } catch (Exception e) {
-                    Log.e(TAG, "External Storage problem");
-                    e.printStackTrace();
-                }
-                return file;
-            }
-        }.execute();
-    }
-
-
-    public static boolean isExternalStorageWritable() {
-        String state = Environment.getExternalStorageState();
-        return Environment.MEDIA_MOUNTED.equals(state);
-    }
-
-    public static File getOutputMediaFile(String fileUniqueName) {
-        // To be safe, you should check that the SDCard is mounted
-        // using Environment.getExternalStorageState() before doing this.
-        File mediaStorageDir = new File(Environment.getExternalStorageDirectory() +
-                File.separator + "My Custom Folder");
-
-        // This location works best if you want the created images to be shared
-        // between applications and persist after your app has been uninstalled.
-
-        // Create the storage directory if it does not exist
-        if (!mediaStorageDir.exists()) {
-            if (!mediaStorageDir.mkdirs()) {
-                return null;
-            }
-        }
-        // Create a media file name
-        String mImageName = fileUniqueName + ".jpg";
-        File mediaFile = new File(mediaStorageDir.getPath() + File.separator + mImageName);
-        return mediaFile;
     }
 }

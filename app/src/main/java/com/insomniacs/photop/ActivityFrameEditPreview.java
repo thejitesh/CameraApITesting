@@ -89,8 +89,10 @@ public class ActivityFrameEditPreview extends AppCompatActivity implements Thumb
             ModelTeamLogoFrame modelTeamLogoFrame = LogoFramesFactory.getModelBasedOnId(id);
             Picasso.get().load(modelTeamLogoFrame.frameRes).into(imgFrame);
 
-            Bitmap bitmapMirrored = BitmapFactory.decodeFile(file.getAbsolutePath());
-            bitmap = BitmapUtils.fixMirrorImage(bitmapMirrored);
+            Bitmap bitmapDecoded = BitmapFactory.decodeFile(file.getAbsolutePath());
+            Bitmap bitmapRoated = ExifUtil.rotateBitmap(file.getAbsolutePath() , bitmapDecoded);
+            bitmap = BitmapUtils.fixMirrorImage(bitmapRoated);
+
             imgPreview.setImageBitmap(bitmap);
             initHorizontalList();
 
@@ -152,7 +154,7 @@ public class ActivityFrameEditPreview extends AppCompatActivity implements Thumb
     public void onThumbnailClick(Filter filter) {
 
         // Bitmap first = BitmapFactory.decodeResource(getResources(), drawable);
-        Bitmap second = Bitmap.createScaledBitmap(bitmap, 640, 640, false);
+        Bitmap second = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(), false);
         //thumbImage.recycle();
         Bitmap third = filter.processFilter(second);
         //second.recycle();
@@ -177,9 +179,7 @@ public class ActivityFrameEditPreview extends AppCompatActivity implements Thumb
 
             case R.id.tvShare:
 
-                showLoader();
-                Util.TakeScreenshot(rlPreviewContainer, this, imageFileName);
-
+                Util.TakeScreenshot(progressBar , rlPreviewContainer, this, imageFileName);
                 break;
         }
     }
