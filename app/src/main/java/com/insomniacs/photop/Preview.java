@@ -66,21 +66,6 @@ class Preview extends ViewGroup implements SurfaceHolder.Callback {
 
         mCamera = camera;
         if (mCamera != null) {
-            mSupportedPreviewSizes = mCamera.getParameters().getSupportedPreviewSizes();
-            requestLayout();
-
-////            // get Camera parameters
-//            Camera.Parameters params = mCamera.getParameters();
-//            params.set("rotation", 90);
-//            params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
-//            List<String> focusModes = params.getSupportedFocusModes();
-//            mCamera.setParameters(params);
-
-            Camera.Parameters cameraParams = mCamera.getParameters();
-           // cameraParams.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
-            mCamera.setParameters(cameraParams);
-            mPreviewSizeList = cameraParams.getSupportedPreviewSizes();
-            mPictureSizeList = cameraParams.getSupportedPictureSizes();
         }
     }
 
@@ -131,20 +116,70 @@ class Preview extends ViewGroup implements SurfaceHolder.Callback {
         // The Surface has been created, acquire the camera and tell it where
         // to draw.
         try {
+
+
             if (mCamera != null) {
                 mCamera.setPreviewDisplay(holder);
-                Camera.Parameters params = mCamera.getParameters();
-                params.set("orientation", "portrait");
-                params.set("rotation", 270);
-                params.setPictureFormat(ImageFormat.JPEG);
-                params.setJpegQuality(100);
-                //params.se
-                mCamera.setParameters(params);
+                initCameraSetting();
             }
         } catch (IOException exception) {
             Log.e(TAG, "IOException caused by setPreviewDisplay()", exception);
         }
     }
+
+
+    public void initCameraSetting(){
+        mSupportedPreviewSizes = mCamera.getParameters().getSupportedPreviewSizes();
+        requestLayout();
+
+        Camera.Parameters params = mCamera.getParameters();
+        params.set("orientation", "portrait");
+        params.set("rotation", 270);
+        params.setPictureFormat(ImageFormat.JPEG);
+        params.setJpegQuality(100);
+        //params.se
+
+
+
+        // cameraParams.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
+        //mCamera.setParameters(params);
+        mPreviewSizeList = params.getSupportedPreviewSizes();
+        mPictureSizeList = params.getSupportedPictureSizes();
+
+
+
+
+
+//            requestLayout();
+
+        setCameraDisplayOrientation((Activity) context, Camera.CameraInfo.CAMERA_FACING_FRONT, mCamera);
+
+
+        params.set("orientation", "portrait");
+        //    parameters.set("rotation", 270);
+        //parameters.setPictureFormat(ImageFormat.JPEG);
+        params.setJpegQuality(100);
+        //parameters.setAutoWhiteBalanceLock(true);
+        //  parameters.setPreviewFormat(ImageFormat.JPEG);
+
+
+
+//            List<Camera.Size> sizes = parameters.getSupportedPictureSizes();
+//            Camera.Size size = sizes.get(0);
+//            for(int i=0;i<sizes.size();i++)
+//            {
+//                if(sizes.get(i).width > size.width)
+//                    size = sizes.get(i);
+//            }
+//            parameters.setPictureSize(size.width, size.height);
+
+
+        mCamera.setParameters(params);
+        mCamera.startPreview();
+
+
+    }
+
 
     public void surfaceDestroyed(SurfaceHolder holder) {
         // Surface will be destroyed when we return, so stop the preview.
@@ -235,35 +270,13 @@ class Preview extends ViewGroup implements SurfaceHolder.Callback {
             doSurfaceChanged(w, h);
             mSurfaceChangedCallDepth--;
 
-            Camera.Parameters parameters = mCamera.getParameters();
-            parameters.setPreviewSize(mPreviewSize.width, mPreviewSize.height);
-//            requestLayout();
 
-            setCameraDisplayOrientation((Activity) context, Camera.CameraInfo.CAMERA_FACING_FRONT, mCamera);
+            initCameraSetting();
 
-
-            parameters.set("orientation", "portrait");
-            //    parameters.set("rotation", 270);
-            //parameters.setPictureFormat(ImageFormat.JPEG);
-            parameters.setJpegQuality(100);
-            //parameters.setAutoWhiteBalanceLock(true);
-          //  parameters.setPreviewFormat(ImageFormat.JPEG);
-            parameters.setPreviewSize(mPreviewSize.width, mPreviewSize.height);
-            parameters.setPictureSize(mPictureSize.width, mPictureSize.height);
-
-
-//            List<Camera.Size> sizes = parameters.getSupportedPictureSizes();
-//            Camera.Size size = sizes.get(0);
-//            for(int i=0;i<sizes.size();i++)
-//            {
-//                if(sizes.get(i).width > size.width)
-//                    size = sizes.get(i);
-//            }
-//            parameters.setPictureSize(size.width, size.height);
-
-
-            mCamera.setParameters(parameters);
-            mCamera.startPreview();
+            Camera.Parameters params = mCamera.getParameters();
+          //  params.setPreviewSize(mPreviewSize.width, mPreviewSize.height);
+            params.setPictureSize(mPictureSize.width, mPictureSize.height);
+            mCamera.setParameters(params);
         }
     }
 
@@ -272,6 +285,7 @@ class Preview extends ViewGroup implements SurfaceHolder.Callback {
 
 
     private void doSurfaceChanged(int width, int height) {
+
         mCamera.stopPreview();
 
         Camera.Parameters cameraParams = mCamera.getParameters();
@@ -280,7 +294,7 @@ class Preview extends ViewGroup implements SurfaceHolder.Callback {
         // The code in this if-statement is prevented from executed again when surfaceChanged is
         // called again due to the change of the layout size in this if-statement.
         if (!mSurfaceConfiguring) {
-            Camera.Size previewSize = getOptimalPreviewSize(mSupportedPreviewSizes, width, height);
+            Camera.Size previewSize = getOptimalSize();//getOptimalPreviewSize(mSupportedPreviewSizes, width, height);
             Camera.Size pictureSize = determinePictureSize(previewSize);
 
             mPreviewSize = previewSize;
@@ -322,6 +336,32 @@ class Preview extends ViewGroup implements SurfaceHolder.Callback {
 //        if (null != mPreviewReadyCallback) {
 //            mPreviewReadyCallback.onPreviewReady();
 //        }
+    }
+
+   float   PREVIEW_SIZE_FACTOR = 1.30f;
+    private Size getOptimalSize() {
+        Camera.Size result = null;
+        final Camera.Parameters parameters = mCamera.getParameters();
+        Log.i(Preview.class.getSimpleName(), "window width: " + getWidth() + ", height: " + getHeight());
+        for (final Camera.Size size : parameters.getSupportedPreviewSizes()) {
+            if (size.width <= getWidth() * PREVIEW_SIZE_FACTOR && size.height <= getHeight() * PREVIEW_SIZE_FACTOR) {
+                if (result == null) {
+                    result = size;
+                } else {
+                    final int resultArea = result.width * result.height;
+                    final int newArea = size.width * size.height;
+
+                    if (newArea > resultArea) {
+                        result = size;
+                    }
+                }
+            }
+        }
+        if (result == null) {
+            result = parameters.getSupportedPreviewSizes().get(0);
+        }
+        Log.i(Preview.class.getSimpleName(), "Using PreviewSize: " + result.width + " x " + result.height);
+        return result;
     }
 
     public boolean isPortrait() {
@@ -503,7 +543,7 @@ class Preview extends ViewGroup implements SurfaceHolder.Callback {
             mCamera.setDisplayOrientation(angle);
         }
 
-        cameraParams.setPreviewSize(mPreviewSize.width, mPreviewSize.height);
+      //  cameraParams.setPreviewSize(mPreviewSize.width, mPreviewSize.height);
         cameraParams.setPictureSize(mPictureSize.width, mPictureSize.height);
         if (DEBUGGING) {
             Log.v(LOG_TAG, "Preview Actual Size - w: " + mPreviewSize.width + ", h: " + mPreviewSize.height);
