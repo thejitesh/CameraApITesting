@@ -71,6 +71,16 @@
             android:scaleType="fitXY" />
 
 
+        <ImageView
+            android:id="@+id/imgClick"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignTop="@+id/imgFragmeImage"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/camera_click" />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvFrames"
             android:layout_width="match_parent"

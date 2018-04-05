@@ -72,6 +72,13 @@ public class ActivityCameraPreview extends AppCompatActivity implements IOnFrame
         imgFragmeImage = findViewById(R.id.imgFragmeImage);
         surfaceView = (SurfaceView) findViewById(R.id.surfaceView);
         //setUpPreview();
+        ImageView imgClick = findViewById(R.id.imgClick);
+        imgClick.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tryTakePicture();
+            }
+        });
 
         RecyclerView rvFrames = findViewById(R.id.rvFrames);
         AdapterTeamLogoFrame adapterTeamLogoFrame = new AdapterTeamLogoFrame(this);
@@ -94,31 +101,31 @@ public class ActivityCameraPreview extends AppCompatActivity implements IOnFrame
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
         if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) || (keyCode == KeyEvent.KEYCODE_VOLUME_UP)) {
-
-
-            camera.autoFocus(new Camera.AutoFocusCallback() {
-                @Override
-                public void onAutoFocus(boolean arg0, Camera arg1) {
-
-                    if (currModelTeamLogoFrame == null) {
-                        Toast.makeText(ActivityCameraPreview.this, "Select Frame", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
-                    shutterCallback = new ShutterCallback() {
-                        @Override
-                        public void onShutter() {
-                        }
-                    };
-
-                    camera.takePicture(shutterCallback, rawCallback, jpegCallback);
-                }
-            });
-
-
+            tryTakePicture();
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    private void tryTakePicture() {
+        camera.autoFocus(new Camera.AutoFocusCallback() {
+            @Override
+            public void onAutoFocus(boolean arg0, Camera arg1) {
+
+                if (currModelTeamLogoFrame == null) {
+                    Toast.makeText(ActivityCameraPreview.this, "Select Frame", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                shutterCallback = new ShutterCallback() {
+                    @Override
+                    public void onShutter() {
+                    }
+                };
+
+                camera.takePicture(shutterCallback, rawCallback, jpegCallback);
+            }
+        });
     }
 
     @Override
