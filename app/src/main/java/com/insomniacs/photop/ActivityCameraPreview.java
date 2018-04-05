@@ -139,7 +139,7 @@ public class ActivityCameraPreview extends AppCompatActivity implements IOnFrame
         int numCams = Camera.getNumberOfCameras();
         if (numCams > 0) {
             try {
-                camera = Camera.open(Camera.CameraInfo.CAMERA_FACING_FRONT);
+                camera = Camera.open(CameraUtil.cameraId);
                 camera.startPreview();
                 preview.setCamera(camera);
 
@@ -249,7 +249,8 @@ public class ActivityCameraPreview extends AppCompatActivity implements IOnFrame
 //            image.setVisibility(View.VISIBLE);
 //            image.setBitmap(bb);
 
-            startActivity(ActivityFrameEditPreview.getIntent(ActivityCameraPreview.this, aVoid.getAbsolutePath(), currModelTeamLogoFrame != null ? currModelTeamLogoFrame.id : ""));
+            boolean isFrontFacing = CameraUtil.isFrontFacing();
+            startActivity(ActivityFrameEditPreview.getIntent(ActivityCameraPreview.this, aVoid.getAbsolutePath(), currModelTeamLogoFrame != null ? currModelTeamLogoFrame.id : "", isFrontFacing));
         }
     }
 }

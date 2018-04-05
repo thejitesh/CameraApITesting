@@ -39,6 +39,7 @@ public class ActivityFrameEditPreview extends AppCompatActivity implements Thumb
 
     private static final String EXTRA_FILE_PATH = "EXTRA_FILE_PATH";
     private static final String EXTRA_MODEL_ID = "EXTRA_MODEL_ID";
+    private static final String EXTRA_IS_FRONT_FACING = "EXTRA_IS_FRONT_FACING";
 
     ImageView imgPreview;
     ImageView imgFrame;
@@ -47,16 +48,18 @@ public class ActivityFrameEditPreview extends AppCompatActivity implements Thumb
     RelativeLayout rlPreviewContainer;
     ProgressBar progressBar;
     String imageFileName;
+    private boolean isFrontFacing;
 
     static {
         System.loadLibrary("NativeImageProcessor");
     }
 
-    public static Intent getIntent(Context context, String path, String id) {
+    public static Intent getIntent(Context context, String path, String id, boolean isFrontFacing) {
 
         Intent intent = new Intent(context, ActivityFrameEditPreview.class);
         intent.putExtra(EXTRA_FILE_PATH, path);
         intent.putExtra(EXTRA_MODEL_ID, id);
+        intent.putExtra(EXTRA_IS_FRONT_FACING, isFrontFacing);
         return intent;
     }
 
@@ -84,14 +87,21 @@ public class ActivityFrameEditPreview extends AppCompatActivity implements Thumb
 
             String path = intent.getStringExtra(EXTRA_FILE_PATH);
             String id = intent.getStringExtra(EXTRA_MODEL_ID);
+            isFrontFacing = intent.getBooleanExtra(EXTRA_IS_FRONT_FACING, false);
+
 
             File file = new File(path);
             ModelTeamLogoFrame modelTeamLogoFrame = LogoFramesFactory.getModelBasedOnId(id);
             Picasso.get().load(modelTeamLogoFrame.frameRes).into(imgFrame);
 
             Bitmap bitmapDecoded = BitmapFactory.decodeFile(file.getAbsolutePath());
-            Bitmap bitmapRoated = ExifUtil.rotateBitmap(file.getAbsolutePath() , bitmapDecoded);
-            bitmap = BitmapUtils.fixMirrorImage(bitmapRoated);
+
+            if (isFrontFacing) {
+                Bitmap bitmapRoated = ExifUtil.rotateBitmap(file.getAbsolutePath(), bitmapDecoded);
+                bitmap = BitmapUtils.fixMirrorImage(bitmapRoated);
+            } else {
+                bitmap = ExifUtil.rotateBitmap(file.getAbsolutePath(), bitmapDecoded);
+            }
 
             imgPreview.setImageBitmap(bitmap);
             initHorizontalList();
@@ -156,9 +166,16 @@ public class ActivityFrameEditPreview extends AppCompatActivity implements Thumb
         // Bitmap first = BitmapFactory.decodeResource(getResources(), drawable);
         Bitmap second = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(), false);
         //thumbImage.recycle();
-        Bitmap third = filter.processFilter(second);
-        //second.recycle();
-        imgPreview.setImageBitmap(third);
+
+        if (!second.isMutable()) {
+            Bitmap mutable = second.copy(Bitmap.Config.ARGB_8888, true);
+            Bitmap third = filter.processFilter(mutable);
+            imgPreview.setImageBitmap(third);
+        } else {
+            Bitmap third = filter.processFilter(second);
+            imgPreview.setImageBitmap(third);
+        }
+
         // placeHolderImageView.setImageBitmap(filter.processFilter(BitmapFactory.decodeResource(getResources(), drawable)));
 
         // third.recycle();
@@ -179,7 +196,7 @@ public class ActivityFrameEditPreview extends AppCompatActivity implements Thumb
 
             case R.id.tvShare:
 
-                Util.TakeScreenshot(progressBar , rlPreviewContainer, this, imageFileName);
+                Util.TakeScreenshot(progressBar, rlPreviewContainer, this, imageFileName);
                 break;
         }
     }
@@ -217,5 +234,13 @@ public class ActivityFrameEditPreview extends AppCompatActivity implements Thumb
 
         Toast.makeText(this, "Shairing Failed", Toast.LENGTH_SHORT).show();
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (bitmap != null) {
+            bitmap.recycle();
+        }
     }
 }
