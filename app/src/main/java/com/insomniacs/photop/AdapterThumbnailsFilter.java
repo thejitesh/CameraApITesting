@@ -32,10 +32,7 @@ public class AdapterThumbnailsFilter extends RecyclerView.Adapter<RecyclerView.V
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        Log.v(TAG, "On Create View Holder Called");
-        View itemView = LayoutInflater.
-                from(viewGroup.getContext()).
-                inflate(R.layout.item_list_thumbnail_filter, viewGroup, false);
+        View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_list_thumbnail_filter, viewGroup, false);
         return new ThumbnailsViewHolder(itemView);
     }
 
@@ -43,12 +40,9 @@ public class AdapterThumbnailsFilter extends RecyclerView.Adapter<RecyclerView.V
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int i) {
 
         final MyThumbnailItem thumbnailItem = dataSet.get(i);
-        Log.v(TAG, "On Bind View Called");
         ThumbnailsViewHolder thumbnailsViewHolder = (ThumbnailsViewHolder) holder;
         thumbnailsViewHolder.thumbnail.setImageBitmap(thumbnailItem.image);
 
-
-        thumbnailsViewHolder.thumbnail.setScaleType(ImageView.ScaleType.FIT_START);
         setAnimation(thumbnailsViewHolder.thumbnail, i);
         thumbnailsViewHolder.thumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
