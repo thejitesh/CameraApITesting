@@ -136,19 +136,12 @@ public class LogoFramesFactory {
 
 
         modelTeamLogoFramesOnlyTeams.add(new ModelTeamLogoFrame("The Scorpion Squad", "", R.drawable.frame_tss, R.drawable.team_ss, R.drawable.team_ss, getSSHashTags(), ""));
-
         modelTeamLogoFramesOnlyTeams.add(new ModelTeamLogoFrame("Tandava Strotam", "", R.drawable.frame_ts, R.drawable.team_ts, R.drawable.team_ss, getTSHashTags(), ""));
-
         modelTeamLogoFramesOnlyTeams.add(new ModelTeamLogoFrame("Anonymous", "", R.drawable.frame_an, R.drawable.team_an, R.drawable.team_ss, getAnHashTags(), ""));
-
         modelTeamLogoFramesOnlyTeams.add(new ModelTeamLogoFrame("Scoring Willows", "", R.drawable.frame_sw, R.drawable.team_sw, R.drawable.team_ss, getSWHashTags(), ""));
-
         modelTeamLogoFramesOnlyTeams.add(new ModelTeamLogoFrame("Royal Jatts", "", R.drawable.frame_rj, R.drawable.team_rj, R.drawable.team_ss, getRJHashTags(), ""));
-
         modelTeamLogoFramesOnlyTeams.add(new ModelTeamLogoFrame("Beer Dose", "", R.drawable.frame_bd, R.drawable.team_bd, R.drawable.team_ss, getBDHashTags(), ""));
-
         modelTeamLogoFramesOnlyTeams.add(new ModelTeamLogoFrame("Sleepless Rangers", "", R.drawable.frame_sr, R.drawable.team_sr, R.drawable.team_ss, getSRHashTags(), ""));
-
         modelTeamLogoFramesOnlyTeams.add(new ModelTeamLogoFrame("Sons Of Pitches", "", R.drawable.frame_sop, R.drawable.team_sop, R.drawable.team_ss, getSOPHashTags(), ""));
 
 
