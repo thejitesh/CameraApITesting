@@ -57,11 +57,21 @@
         </FrameLayout>
 
         <ImageView
+            android:id="@+id/imgOwlLogo"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_alignParentTop="true"
             android:scaleType="fitXY"
             android:src="@drawable/frame_top_owl" />
+
+
+        <ImageView
+            android:id="@+id/imgSwitchCamera"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            android:layout_below="@+id/imgOwlLogo"
+            android:src="@drawable/switch_camera" />
 
         <ImageView
             android:id="@+id/imgFragmeImage"
@@ -70,6 +80,16 @@
             android:layout_above="@+id/rvFrames"
             android:scaleType="fitXY" />
 
+
+        <ImageView
+            android:id="@+id/imgClick"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignTop="@+id/imgFragmeImage"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/camera_click" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvFrames"

@@ -49,6 +49,7 @@ public class ActivityFrameEditPreview extends AppCompatActivity implements Thumb
     ProgressBar progressBar;
     String imageFileName;
     private boolean isFrontFacing;
+    ModelTeamLogoFrame modelTeamLogoFrame;
 
     static {
         System.loadLibrary("NativeImageProcessor");
@@ -91,7 +92,7 @@ public class ActivityFrameEditPreview extends AppCompatActivity implements Thumb
 
 
             File file = new File(path);
-            ModelTeamLogoFrame modelTeamLogoFrame = LogoFramesFactory.getModelBasedOnId(id);
+            modelTeamLogoFrame = LogoFramesFactory.getModelBasedOnId(id);
             Picasso.get().load(modelTeamLogoFrame.frameRes).into(imgFrame);
 
             Bitmap bitmapDecoded = BitmapFactory.decodeFile(file.getAbsolutePath());
@@ -213,10 +214,24 @@ public class ActivityFrameEditPreview extends AppCompatActivity implements Thumb
     public void onFileSaveSuccessFull(File file) {
 
         hideLoader();
+
+
+        String sharableText = "";
+        switch (modelTeamLogoFrame.type) {
+            case ModelTeamLogoFrame.TYPE_INDIVIDUAL_TEAM:
+                sharableText = "I am here to support the " + modelTeamLogoFrame.teamAName + " in Owl Warrior League Season1. Cheers!  #OWL #OwlWarriorLeague #" + modelTeamLogoFrame.teamANameNoSpace;
+                break;
+
+            case ModelTeamLogoFrame.TYPE_TWO_TEAMS:
+                sharableText = "The temperature is soaring here at Owl Warrior League. It's Fun and Masti all around. #OWL #OwlWarriorLeague #"
+                        + modelTeamLogoFrame.teamANameNoSpace + "vs" + modelTeamLogoFrame.teamBNameNoSpace + " " + modelTeamLogoFrame.teamAHashTag + " " + modelTeamLogoFrame.teamBHashTag;
+                break;
+        }
+
         Uri imageUri = Uri.fromFile(file);
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.putExtra(Intent.EXTRA_TEXT, "Hello");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, sharableText);
         shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
         shareIntent.setType("image/jpeg");
         shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -225,7 +240,7 @@ public class ActivityFrameEditPreview extends AppCompatActivity implements Thumb
         shareIntent.setDataAndType(apkURI, "image/jpeg");
         shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-        startActivity(Intent.createChooser(shareIntent, "send"));
+        startActivity(Intent.createChooser(shareIntent, "POST"));
 
     }
 
