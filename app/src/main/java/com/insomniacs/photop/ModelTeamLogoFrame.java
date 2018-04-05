@@ -6,8 +6,8 @@ package com.insomniacs.photop;
 
 public class ModelTeamLogoFrame {
 
-    public static int TYPE_INDIVIDUAL_TEAM = 101;
-    public static int TYPE_TWO_TEAMS = 102;
+    public final static int TYPE_INDIVIDUAL_TEAM = 101;
+    public final static int TYPE_TWO_TEAMS = 102;
 
     int type;
     String id;

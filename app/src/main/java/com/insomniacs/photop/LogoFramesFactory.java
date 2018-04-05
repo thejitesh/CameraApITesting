@@ -95,21 +95,24 @@ public class LogoFramesFactory {
             hmPairModelTeamLogo.put(modelTeamLogoFrame.id, modelTeamLogoFrame);
         }
 
+        ArrayList<ModelTeamLogoFrame> modelTeamLogoFramesOnlyTeams = new ArrayList<>();
 
-        modelTeamLogoFrames.add(new ModelTeamLogoFrame("Sons Of Pitches", "", R.drawable.frame_ssp_ss, R.drawable.team_sop, R.drawable.team_ss));
-        modelTeamLogoFrames.add(new ModelTeamLogoFrame("The Scorpion Squad", "", R.drawable.frame_ssp_ss, R.drawable.team_sop, R.drawable.team_ss));
-        modelTeamLogoFrames.add(new ModelTeamLogoFrame("Tandava Strotam", "", R.drawable.frame_ssp_ss, R.drawable.team_sop, R.drawable.team_ss));
-        modelTeamLogoFrames.add(new ModelTeamLogoFrame("Anonymous", "", R.drawable.frame_ssp_ss, R.drawable.team_sop, R.drawable.team_ss));
-        modelTeamLogoFrames.add(new ModelTeamLogoFrame("Scoring Willows", "", R.drawable.frame_ssp_ss, R.drawable.team_sop, R.drawable.team_ss));
-        modelTeamLogoFrames.add(new ModelTeamLogoFrame("Royal Jatts", "", R.drawable.frame_ssp_ss, R.drawable.team_sop, R.drawable.team_ss));
-        modelTeamLogoFrames.add(new ModelTeamLogoFrame("Beer Dose", "", R.drawable.frame_ssp_ss, R.drawable.team_sop, R.drawable.team_ss));
-        modelTeamLogoFrames.add(new ModelTeamLogoFrame("Sleepless Rangers", "", R.drawable.frame_ssp_ss, R.drawable.team_sop, R.drawable.team_ss));
 
-        for (int i = 0; i < modelTeamLogoFrames.size(); i++) {
-            ModelTeamLogoFrame modelTeamLogoFrame = modelTeamLogoFrames.get(i);
+        modelTeamLogoFramesOnlyTeams.add(new ModelTeamLogoFrame("The Scorpion Squad", "", R.drawable.frame_ssp_ss, R.drawable.team_ss, R.drawable.team_ss));
+        modelTeamLogoFramesOnlyTeams.add(new ModelTeamLogoFrame("Tandava Strotam", "", R.drawable.frame_ssp_ss, R.drawable.team_ts, R.drawable.team_ss));
+        modelTeamLogoFramesOnlyTeams.add(new ModelTeamLogoFrame("Anonymous", "", R.drawable.frame_ssp_ss, R.drawable.team_an, R.drawable.team_ss));
+        modelTeamLogoFramesOnlyTeams.add(new ModelTeamLogoFrame("Scoring Willows", "", R.drawable.frame_ssp_ss, R.drawable.team_sw, R.drawable.team_ss));
+        modelTeamLogoFramesOnlyTeams.add(new ModelTeamLogoFrame("Royal Jatts", "", R.drawable.frame_ssp_ss, R.drawable.team_rj, R.drawable.team_ss));
+        modelTeamLogoFramesOnlyTeams.add(new ModelTeamLogoFrame("Beer Dose", "", R.drawable.frame_ssp_ss, R.drawable.team_bd, R.drawable.team_ss));
+        modelTeamLogoFramesOnlyTeams.add(new ModelTeamLogoFrame("Sleepless Rangers", "", R.drawable.frame_ssp_ss, R.drawable.team_sr, R.drawable.team_ss));
+        modelTeamLogoFramesOnlyTeams.add(new ModelTeamLogoFrame("Sons Of Pitches", "", R.drawable.frame_ssp_ss, R.drawable.team_sop, R.drawable.team_ss));
+
+        for (int i = 0; i < modelTeamLogoFramesOnlyTeams.size(); i++) {
+            ModelTeamLogoFrame modelTeamLogoFrame = modelTeamLogoFramesOnlyTeams.get(i);
             modelTeamLogoFrame.id = String.valueOf(idCounter);
             idCounter++;
             modelTeamLogoFrame.type = ModelTeamLogoFrame.TYPE_INDIVIDUAL_TEAM;
+            modelTeamLogoFrames.add(0, modelTeamLogoFrame);
             hmPairModelTeamLogo.put(modelTeamLogoFrame.id, modelTeamLogoFrame);
         }
     }

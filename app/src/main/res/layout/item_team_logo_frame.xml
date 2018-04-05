@@ -21,12 +21,20 @@
             android:scaleType="centerCrop" />
 
         <TextView
+            android:id="@+id/tvVs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="vs"
-            android:textSize="10sp"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"
+            android:textSize="10sp" />
+
+        <ImageView
+            android:id="@+id/imgteam"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_centerInParent="true"
+            android:scaleType="centerCrop" />
 
         <ImageView
             android:id="@+id/imgteamB"

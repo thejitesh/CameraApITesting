@@ -44,8 +44,26 @@ public class AdapterTeamLogoFrame extends RecyclerView.Adapter<AdapterTeamLogoFr
 
         final ModelTeamLogoFrame modelTeamLogoFrame = logoFrames.get(position);
 
-        Picasso.get().load(modelTeamLogoFrame.teamAResId).into(holder.imgteamA);
-        Picasso.get().load(modelTeamLogoFrame.teamBResId).into(holder.imgteamB);
+        switch (modelTeamLogoFrame.type) {
+
+            case ModelTeamLogoFrame.TYPE_INDIVIDUAL_TEAM:
+                holder.imgteam.setVisibility(View.VISIBLE);
+                holder.tvVs.setVisibility(View.GONE);
+                holder.imgteamA.setVisibility(View.GONE);
+                holder.imgteamB.setVisibility(View.GONE);
+                Picasso.get().load(modelTeamLogoFrame.teamAResId).into(holder.imgteam);
+                break;
+            case ModelTeamLogoFrame.TYPE_TWO_TEAMS:
+
+                holder.imgteam.setVisibility(View.GONE);
+                holder.tvVs.setVisibility(View.VISIBLE);
+                holder.imgteamA.setVisibility(View.VISIBLE);
+                holder.imgteamB.setVisibility(View.VISIBLE);
+                Picasso.get().load(modelTeamLogoFrame.teamAResId).into(holder.imgteamA);
+                Picasso.get().load(modelTeamLogoFrame.teamBResId).into(holder.imgteamB);
+                break;
+        }
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,12 +82,16 @@ public class AdapterTeamLogoFrame extends RecyclerView.Adapter<AdapterTeamLogoFr
     class Holder extends RecyclerView.ViewHolder {
 
 
+        TextView tvVs;
+        ImageView imgteam;
         ImageView imgteamA;
         ImageView imgteamB;
 
         public Holder(View itemView) {
 
             super(itemView);
+            tvVs = (TextView) itemView.findViewById(R.id.tvVs);
+            imgteam = (ImageView) itemView.findViewById(R.id.imgteam);
             imgteamA = (ImageView) itemView.findViewById(R.id.imgteamA);
             imgteamB = (ImageView) itemView.findViewById(R.id.imgteamB);
         }
