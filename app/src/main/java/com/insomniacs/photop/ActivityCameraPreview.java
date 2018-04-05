@@ -4,11 +4,8 @@ package com.insomniacs.photop;
  * @author Jose Davis Nidhin
  */
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
 import android.hardware.Camera.ShutterCallback;
@@ -16,18 +13,13 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
@@ -47,8 +39,9 @@ public class ActivityCameraPreview extends AppCompatActivity implements IOnFrame
     private static final String TAG = "ActivityCameraPreview";
     private Preview preview;
     private Camera camera;
-    private ImageView imgFragmeImage;
+    private ImageView imgFragmeImage, tvContributors;
     private ModelTeamLogoFrame currModelTeamLogoFrame;
+
     SurfaceView surfaceView;
     FrameLayout frameLayout;
     ShutterCallback shutterCallback;
@@ -68,6 +61,16 @@ public class ActivityCameraPreview extends AppCompatActivity implements IOnFrame
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.main_two);
+
+        tvContributors = findViewById(R.id.tvContribute);
+        tvContributors.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ActivityCameraPreview.this, ActivityContribution.class);
+                startActivity(intent);
+            }
+        });
+
 
         imgFragmeImage = findViewById(R.id.imgFragmeImage);
         surfaceView = (SurfaceView) findViewById(R.id.surfaceView);

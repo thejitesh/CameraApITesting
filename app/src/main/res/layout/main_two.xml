@@ -23,7 +23,7 @@
 
 
         <ImageView
-            android:id="@+id/tvShare"
+            android:id="@+id/tvContribute"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_alignParentEnd="true"
