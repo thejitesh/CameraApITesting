@@ -80,6 +80,21 @@ public class ActivityCameraPreview extends AppCompatActivity implements IOnFrame
             }
         });
 
+        ImageView imgSwitchCamera = findViewById(R.id.imgSwitchCamera);
+        imgSwitchCamera.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CameraUtil.switchCamera();
+                frameLayout.removeView(preview);
+                surfaceView.setVisibility(View.GONE);
+                stopCameraPreview();
+
+                setUpPreview();
+                openCamera();
+                surfaceView.setVisibility(View.VISIBLE);
+            }
+        });
+
         RecyclerView rvFrames = findViewById(R.id.rvFrames);
         AdapterTeamLogoFrame adapterTeamLogoFrame = new AdapterTeamLogoFrame(this);
         rvFrames.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));

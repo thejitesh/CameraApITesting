@@ -57,11 +57,21 @@
         </FrameLayout>
 
         <ImageView
+            android:id="@+id/imgOwlLogo"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_alignParentTop="true"
             android:scaleType="fitXY"
             android:src="@drawable/frame_top_owl" />
+
+
+        <ImageView
+            android:id="@+id/imgSwitchCamera"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/imgOwlLogo"
+            android:scaleType="fitXY"
+            android:src="@drawable/switch_camera" />
 
         <ImageView
             android:id="@+id/imgFragmeImage"
