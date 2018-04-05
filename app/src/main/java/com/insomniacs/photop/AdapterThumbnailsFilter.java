@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.zomato.photofilters.utils.ThumbnailCallback;
 
@@ -42,7 +43,11 @@ public class AdapterThumbnailsFilter extends RecyclerView.Adapter<RecyclerView.V
         final MyThumbnailItem thumbnailItem = dataSet.get(i);
         ThumbnailsViewHolder thumbnailsViewHolder = (ThumbnailsViewHolder) holder;
         thumbnailsViewHolder.thumbnail.setImageBitmap(thumbnailItem.image);
-
+        try {
+            thumbnailsViewHolder.filterName.setText(thumbnailItem.filter.getName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         setAnimation(thumbnailsViewHolder.thumbnail, i);
         thumbnailsViewHolder.thumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,10 +76,12 @@ public class AdapterThumbnailsFilter extends RecyclerView.Adapter<RecyclerView.V
 
     public static class ThumbnailsViewHolder extends RecyclerView.ViewHolder {
         public ImageView thumbnail;
+        public TextView filterName;
 
         public ThumbnailsViewHolder(View v) {
             super(v);
             this.thumbnail = (ImageView) v.findViewById(R.id.thumbnail);
+            this.filterName = (TextView) v.findViewById(R.id.filterName);
         }
     }
 }
