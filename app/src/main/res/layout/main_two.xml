@@ -69,8 +69,8 @@
             android:id="@+id/imgSwitchCamera"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_below="@+id/imgOwlLogo"
             android:scaleType="fitXY"
+            android:layout_below="@+id/imgOwlLogo"
             android:src="@drawable/switch_camera" />
 
         <ImageView

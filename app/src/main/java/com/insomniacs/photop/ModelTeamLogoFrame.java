@@ -13,6 +13,8 @@ public class ModelTeamLogoFrame {
     String id;
     String teamAName;
     String teamBName;
+    String teamANameNoSpace;
+    String teamBNameNoSpace;
     int frameRes;
     int teamAResId;
     int teamBResId;
@@ -34,5 +36,7 @@ public class ModelTeamLogoFrame {
         this.frameRes = frameRes;
         this.teamAHashTag = teamAHashTag;
         this.teamBHashTag = teamBHashTag;
+        this.teamANameNoSpace = teamAName.replace(" ", "");
+        this.teamBNameNoSpace = teamBName.replace(" ", "");
     }
 }
