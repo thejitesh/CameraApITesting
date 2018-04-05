@@ -16,17 +16,23 @@ public class ModelTeamLogoFrame {
     int frameRes;
     int teamAResId;
     int teamBResId;
+    String teamAHashTag;
+    String teamBHashTag;
 
     public ModelTeamLogoFrame(String teamAName,
                               String teamBName,
                               int frameRes,
                               int teamAResId,
-                              int teamBResId) {
+                              int teamBResId,
+                              String teamAHashTag,
+                              String teamBHashTag) {
 
         this.teamAName = teamAName;
         this.teamBName = teamBName;
         this.teamAResId = teamAResId;
         this.teamBResId = teamBResId;
         this.frameRes = frameRes;
+        this.teamAHashTag = teamAHashTag;
+        this.teamBHashTag = teamBHashTag;
     }
 }
