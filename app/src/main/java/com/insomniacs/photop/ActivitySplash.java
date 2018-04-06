@@ -2,27 +2,22 @@ package com.insomniacs.photop;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.os.Handler;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
-import android.widget.Toast;
-
-import com.insomniacs.photop.utils.AndroidUtils;
-import com.insomniacs.photop.utils.Util;
 
 import java.util.ArrayList;
 
 public class ActivitySplash extends AppCompatActivity {
+
 
     private static final int REQ_CODE_PERMISSION = 1001;
 
@@ -56,7 +51,14 @@ public class ActivitySplash extends AppCompatActivity {
             }
         });
 
-        AndroidUtils.printDensityType(this);
+        ImageView img_an = findViewById(R.id.img_an);
+        ImageView img_bd = findViewById(R.id.img_bd);
+        ImageView img_rj = findViewById(R.id.img_rj);
+        ImageView img_sop = findViewById(R.id.img_sop);
+        ImageView img_sr = findViewById(R.id.img_sr);
+        ImageView img_tss = findViewById(R.id.img_tss);
+        ImageView img_sw = findViewById(R.id.img_sw);
+        ImageView img_ts = findViewById(R.id.img_ts);
 
     }
 
