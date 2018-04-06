@@ -4,8 +4,8 @@
     android:layout_height="wrap_content">
 
     <RelativeLayout
-        android:layout_width="80dp"
-        android:layout_height="70dp"
+        android:layout_width="@dimen/frame_selection_window_width"
+        android:layout_height="@dimen/frame_selection_window_height"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
@@ -14,8 +14,8 @@
 
         <ImageView
             android:id="@+id/imgteamA"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="@dimen/frame_selection_window_team_logo_dimen"
+            android:layout_height="@dimen/frame_selection_window_team_logo_dimen"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:scaleType="centerCrop" />
@@ -31,15 +31,15 @@
 
         <ImageView
             android:id="@+id/imgteam"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="@dimen/frame_selection_window_team_logo_dimen"
+            android:layout_height="@dimen/frame_selection_window_team_logo_dimen"
             android:layout_centerInParent="true"
             android:scaleType="centerCrop" />
 
         <ImageView
             android:id="@+id/imgteamB"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="@dimen/frame_selection_window_team_logo_dimen"
+            android:layout_height="@dimen/frame_selection_window_team_logo_dimen"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:scaleType="centerCrop" />
