@@ -117,7 +117,7 @@ public class Util {
 
             //  storeBitmap(bmp, myfile);
 
-            File dir_image = new File(Environment.getExternalStorageDirectory() + File.separator + "My Custom Folder");
+            File dir_image = new File(Environment.getExternalStorageDirectory() + File.separator + "owl");
             dir_image.mkdirs();
 
             try {
