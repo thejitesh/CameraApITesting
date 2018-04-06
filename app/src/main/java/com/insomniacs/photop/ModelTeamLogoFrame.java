@@ -8,6 +8,7 @@ public class ModelTeamLogoFrame {
 
     public final static int TYPE_INDIVIDUAL_TEAM = 101;
     public final static int TYPE_TWO_TEAMS = 102;
+    public final static int TYPE_OWL = 103;
 
     int type;
     String id;

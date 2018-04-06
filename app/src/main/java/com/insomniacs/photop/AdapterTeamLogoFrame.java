@@ -53,14 +53,22 @@ public class AdapterTeamLogoFrame extends RecyclerView.Adapter<AdapterTeamLogoFr
                 holder.imgteamB.setVisibility(View.GONE);
                 Picasso.get().load(modelTeamLogoFrame.teamAResId).into(holder.imgteam);
                 break;
-            case ModelTeamLogoFrame.TYPE_TWO_TEAMS:
 
+            case ModelTeamLogoFrame.TYPE_TWO_TEAMS:
                 holder.imgteam.setVisibility(View.GONE);
                 holder.tvVs.setVisibility(View.VISIBLE);
                 holder.imgteamA.setVisibility(View.VISIBLE);
                 holder.imgteamB.setVisibility(View.VISIBLE);
                 Picasso.get().load(modelTeamLogoFrame.teamAResId).into(holder.imgteamA);
                 Picasso.get().load(modelTeamLogoFrame.teamBResId).into(holder.imgteamB);
+                break;
+
+            case ModelTeamLogoFrame.TYPE_OWL:
+                holder.imgteam.setVisibility(View.VISIBLE);
+                holder.tvVs.setVisibility(View.GONE);
+                holder.imgteamA.setVisibility(View.GONE);
+                holder.imgteamB.setVisibility(View.GONE);
+                Picasso.get().load(modelTeamLogoFrame.teamAResId).into(holder.imgteam);
                 break;
         }
 

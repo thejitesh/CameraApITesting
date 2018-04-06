@@ -94,6 +94,18 @@ public class ActivityFrameEditPreview extends AppCompatActivity implements Thumb
             File file = new File(path);
             modelTeamLogoFrame = LogoFramesFactory.getModelBasedOnId(id);
             Picasso.get().load(modelTeamLogoFrame.frameRes).into(imgFrame);
+            switch (modelTeamLogoFrame.type) {
+                case ModelTeamLogoFrame.TYPE_INDIVIDUAL_TEAM:
+                case ModelTeamLogoFrame.TYPE_OWL:
+                    imgFrame.getLayoutParams().height = (int) getResources().getDimension(R.dimen.user_selected_frame_height_individual);
+                    break;
+
+                case ModelTeamLogoFrame.TYPE_TWO_TEAMS:
+                    imgFrame.getLayoutParams().height = (int) getResources().getDimension(R.dimen.user_selected_frame_height);
+                    break;
+            }
+            imgFrame.requestLayout();
+
 
             Bitmap bitmapDecoded = BitmapFactory.decodeFile(file.getAbsolutePath());
 
@@ -225,6 +237,10 @@ public class ActivityFrameEditPreview extends AppCompatActivity implements Thumb
             case ModelTeamLogoFrame.TYPE_TWO_TEAMS:
                 sharableText = "The temperature is soaring here at Owl Warrior League. It's Fun and Masti all around. #OWL #OwlWarriorLeague #"
                         + modelTeamLogoFrame.teamANameNoSpace + "vs" + modelTeamLogoFrame.teamBNameNoSpace + " " + modelTeamLogoFrame.teamAHashTag + " " + modelTeamLogoFrame.teamBHashTag;
+                break;
+
+            case ModelTeamLogoFrame.TYPE_OWL:
+                sharableText = "I am at OWL Season 1! #OWL #OwlWarriorLeague";
                 break;
         }
 

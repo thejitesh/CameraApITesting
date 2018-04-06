@@ -12,6 +12,9 @@ public class LogoFramesFactory {
     private static ArrayList<ModelTeamLogoFrame> modelTeamLogoFrames = new ArrayList<>();
     private static HashMap<String, ModelTeamLogoFrame> hmPairModelTeamLogo = new HashMap<>();
 
+    public static String getOWLHashTags() {
+        return "I am at OWL Season 1! #OWL #OwlWarriorLeague";
+    }
 
     public static String getSOPHashTags() {
         return "#VictoryIsOurHobby";
@@ -153,6 +156,15 @@ public class LogoFramesFactory {
             modelTeamLogoFrames.add(0, modelTeamLogoFrame);
             hmPairModelTeamLogo.put(modelTeamLogoFrame.id, modelTeamLogoFrame);
         }
+
+
+        ModelTeamLogoFrame modelTeamLogoFrame123 = new ModelTeamLogoFrame("", "", R.drawable.frame_owl, R.drawable.owl, R.drawable.team_ss, getOWLHashTags(), "");
+        modelTeamLogoFrame123.id = String.valueOf(idCounter);
+        idCounter++;
+        modelTeamLogoFrame123.type = ModelTeamLogoFrame.TYPE_OWL;
+        modelTeamLogoFrames.add(0, modelTeamLogoFrame123);
+        hmPairModelTeamLogo.put(modelTeamLogoFrame123.id, modelTeamLogoFrame123);
+
     }
 
     public static ModelTeamLogoFrame getModelBasedOnId(String id) {

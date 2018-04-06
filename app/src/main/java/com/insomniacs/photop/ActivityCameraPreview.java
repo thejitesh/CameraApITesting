@@ -234,6 +234,7 @@ public class ActivityCameraPreview extends AppCompatActivity implements IOnFrame
         Picasso.get().load(modelTeamLogoFrame.frameRes).into(imgFragmeImage);
         switch (modelTeamLogoFrame.type) {
             case ModelTeamLogoFrame.TYPE_INDIVIDUAL_TEAM:
+            case ModelTeamLogoFrame.TYPE_OWL:
                 imgFragmeImage.getLayoutParams().height = (int) getResources().getDimension(R.dimen.user_selected_frame_height_individual);
                 break;
 
