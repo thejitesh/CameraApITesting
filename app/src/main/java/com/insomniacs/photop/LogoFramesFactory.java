@@ -71,14 +71,14 @@ public class LogoFramesFactory {
 
         modelTeamLogoFrames.add(new ModelTeamLogoFrame("Tandava Strotam", "The Scorpion Squad", R.drawable.frame_ts_tss, R.drawable.team_ts, R.drawable.team_ss, getTSHashTags(), getSSHashTags()));
         modelTeamLogoFrames.add(new ModelTeamLogoFrame("Tandava Strotam", "Sons Of Pitches", R.drawable.frame_ts_sop, R.drawable.team_ts, R.drawable.team_sop, getTSHashTags(), getSOPHashTags()));
-        modelTeamLogoFrames.add(new ModelTeamLogoFrame("Tandava Strotam", "Anonymous", R.drawable.frame_tss_an, R.drawable.team_ts, R.drawable.team_an, getTSHashTags(), getAnHashTags()));
-        modelTeamLogoFrames.add(new ModelTeamLogoFrame("Tandava Strotam", "Scoring Willows", R.drawable.frame_tss_sw, R.drawable.team_ts, R.drawable.team_sw, getTSHashTags(), getSWHashTags()));
-        modelTeamLogoFrames.add(new ModelTeamLogoFrame("Tandava Strotam", "Royal Jatts", R.drawable.frame_tss_rj, R.drawable.team_ts, R.drawable.team_rj, getTSHashTags(), getRJHashTags()));
-        modelTeamLogoFrames.add(new ModelTeamLogoFrame("Tandava Strotam", "Beer Dose", R.drawable.frame_tss_bd, R.drawable.team_ts, R.drawable.team_bd, getTSHashTags(), getBDHashTags()));
-        modelTeamLogoFrames.add(new ModelTeamLogoFrame("Tandava Strotam", "Sleepless Rangers", R.drawable.frame_tss_sr, R.drawable.team_ts, R.drawable.team_sr, getTSHashTags(), getSRHashTags()));
+        modelTeamLogoFrames.add(new ModelTeamLogoFrame("Tandava Strotam", "Anonymous", R.drawable.frame_ts_an, R.drawable.team_ts, R.drawable.team_an, getTSHashTags(), getAnHashTags()));
+        modelTeamLogoFrames.add(new ModelTeamLogoFrame("Tandava Strotam", "Scoring Willows", R.drawable.frame_ts_sw, R.drawable.team_ts, R.drawable.team_sw, getTSHashTags(), getSWHashTags()));
+        modelTeamLogoFrames.add(new ModelTeamLogoFrame("Tandava Strotam", "Royal Jatts", R.drawable.frame_ts_rj, R.drawable.team_ts, R.drawable.team_rj, getTSHashTags(), getRJHashTags()));
+        modelTeamLogoFrames.add(new ModelTeamLogoFrame("Tandava Strotam", "Beer Dose", R.drawable.frame_ts_bd, R.drawable.team_ts, R.drawable.team_bd, getTSHashTags(), getBDHashTags()));
+        modelTeamLogoFrames.add(new ModelTeamLogoFrame("Tandava Strotam", "Sleepless Rangers", R.drawable.frame_ts_sr, R.drawable.team_ts, R.drawable.team_sr, getTSHashTags(), getSRHashTags()));
 
 
-        modelTeamLogoFrames.add(new ModelTeamLogoFrame("Anonymous", "The Scorpion Squad", R.drawable.frame_an_sop, R.drawable.team_an, R.drawable.team_ss, getAnHashTags(), getSSHashTags()));
+        modelTeamLogoFrames.add(new ModelTeamLogoFrame("Anonymous", "The Scorpion Squad", R.drawable.frame_an_tss, R.drawable.team_an, R.drawable.team_ss, getAnHashTags(), getSSHashTags()));
         modelTeamLogoFrames.add(new ModelTeamLogoFrame("Anonymous", "Tandava Strotam", R.drawable.frame_an_ts, R.drawable.team_an, R.drawable.team_ts, getAnHashTags(), getTSHashTags()));
         modelTeamLogoFrames.add(new ModelTeamLogoFrame("Anonymous", "Sons Of Pitches", R.drawable.frame_an_sop, R.drawable.team_an, R.drawable.team_sop, getAnHashTags(), getSOPHashTags()));
         modelTeamLogoFrames.add(new ModelTeamLogoFrame("Anonymous", "Scoring Willows", R.drawable.frame_an_sw, R.drawable.team_an, R.drawable.team_sw, getAnHashTags(), getSWHashTags()));
