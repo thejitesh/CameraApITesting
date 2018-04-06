@@ -7,7 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="37dp"
+        android:layout_height="wrap_content"
         android:background="#efebeb"
         android:visibility="visible">
 
@@ -70,8 +70,10 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_below="@+id/imgOwlLogo"
+            android:padding="8dp"
             android:scaleType="fitXY"
-            android:src="@drawable/switch_camera" />
+            android:src="@drawable/switch_camera"
+            android:tint="#ffffff" />
 
         <ImageView
             android:id="@+id/imgFragmeImage"
@@ -85,11 +87,12 @@
             android:id="@+id/imgClick"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_alignTop="@+id/imgFragmeImage"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
+            android:layout_above="@+id/imgFragmeImage"
+            android:layout_alignParentEnd="true"
+            android:padding="8dp"
             android:scaleType="fitXY"
-            android:src="@drawable/camera_click" />
+            android:src="@drawable/camera_click"
+            android:tint="#ffffff" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvFrames"
