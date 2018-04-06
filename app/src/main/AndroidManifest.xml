@@ -16,16 +16,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".ActivityCameraPreview"></activity>
-        <activity android:name=".ActivityFrameEditPreview" />
-        <activity android:name=".Test.ActivityTest"></activity>
-        <activity android:name=".ActivitySplash">
+        <activity
+            android:name=".ActivityCameraPreview"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivityFrameEditPreview"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivitySplash"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ActivityContribution" />
+        <activity
+            android:name=".ActivityContribution"
+            android:screenOrientation="portrait" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -34,7 +41,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
     </application>
 
