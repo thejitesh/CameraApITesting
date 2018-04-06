@@ -38,9 +38,10 @@ public class AdapterContribution extends RecyclerView.Adapter<AdapterContributio
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         ContributorModel contributorModel = datalist.get(position);
+        AndroidUtils.setImageBackground(holder.circleImageView, contributorModel.resId);
         AndroidUtils.setText(holder.tvName, contributorModel.name);
         AndroidUtils.setText(holder.tvContributors, contributorModel.designation);
-        AndroidUtils.setImageBackground(holder.circleImageView, contributorModel.resId);
+
     }
 
     @Override

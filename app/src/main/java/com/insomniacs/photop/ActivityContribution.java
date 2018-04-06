@@ -18,6 +18,7 @@ public class ActivityContribution extends AppCompatActivity {
 
     private RecyclerView rvContributors;
     private AdapterContribution adapterContribution;
+    ArrayList<ContributorModel> contributorList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,17 +33,19 @@ public class ActivityContribution extends AppCompatActivity {
     }
 
     public void setContributors() {
-        ArrayList<ContributorModel> contributorList = new ArrayList<>();
+        contributorList = new ArrayList<>();
         ContributorModel contributorModel = new ContributorModel();
         contributorModel.name = "Jitesh Vartak";
         contributorModel.designation = "Senior Android Developer";
         contributorModel.resId = R.drawable.frame_an_sop;
         contributorList.add(contributorModel);
+
         ContributorModel contributorModel2 = new ContributorModel();
-        contributorModel.name = "Varun Pandey";
+        contributorModel2.name = "Varun Pandey";
         contributorModel2.designation = "Junior Android Developer";
         contributorModel2.resId = R.drawable.frame_sw;
         contributorList.add(contributorModel2);
+
         adapterContribution.setData(contributorList);
         adapterContribution.notifyDataSetChanged();
 
