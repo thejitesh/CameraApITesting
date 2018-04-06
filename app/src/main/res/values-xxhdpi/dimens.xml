@@ -4,5 +4,9 @@
     <dimen name="user_selected_frame_height">180dp</dimen>
     <dimen name="user_selected_frame_height_individual">120dp</dimen>
     <dimen name="camera_control_buttons_dimen">60dp</dimen>
-    <dimen name="credits_icon_dimen">25dp</dimen>
+    <dimen name="credits_icon_dimen">35dp</dimen>
+    <dimen name="frame_selection_window_width">80dp</dimen>
+    <dimen name="frame_selection_window_height">70dp</dimen>
+    <dimen name="frame_selection_window_team_logo_dimen">35dp</dimen>
+    <dimen name="share_text_size">17sp</dimen>
 </resources>
