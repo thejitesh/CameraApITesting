@@ -14,6 +14,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Random;
 
 /**
  * Created by INSODROID1 on 23-03-2018.
@@ -154,5 +155,15 @@ public class Util {
             super.onPostExecute(aVoid);
             iOnFileSaveSuccessFul.onFileSaveSuccessFull(aVoid);
         }
+    }
+
+    public static int randInt(int min, int max) {
+        return new Random().nextInt((max - min) + 1) + min;
+    }
+
+    public static float randFloat(float min, float max) {
+        Random rand = new Random();
+        float result = rand.nextFloat() * (max - min) + min;
+        return result;
     }
 }
