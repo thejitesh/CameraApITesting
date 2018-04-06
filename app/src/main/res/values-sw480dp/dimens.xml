@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<dimen name="dp_minus10">-10.00dp</dimen>
-	<dimen name="dp_8">8.00dp</dimen>
+    <dimen name="owl_top_image">100dp</dimen>
+    <dimen name="user_selected_frame_height">135dp</dimen>
+    <dimen name="camera_control_buttons_dimen">50dp</dimen>
+    <dimen name="credits_icon_dimen">25dp</dimen>
 </resources>

@@ -24,8 +24,8 @@
 
         <ImageView
             android:id="@+id/tvContribute"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="@dimen/credits_icon_dimen"
+            android:layout_height="@dimen/credits_icon_dimen"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="10dp"
@@ -59,7 +59,7 @@
         <ImageView
             android:id="@+id/imgOwlLogo"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="@dimen/owl_top_image"
             android:layout_alignParentTop="true"
             android:scaleType="fitXY"
             android:src="@drawable/frame_top_owl" />
@@ -67,8 +67,8 @@
 
         <ImageView
             android:id="@+id/imgSwitchCamera"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/camera_control_buttons_dimen"
+            android:layout_height="@dimen/camera_control_buttons_dimen"
             android:layout_below="@+id/imgOwlLogo"
             android:padding="8dp"
             android:scaleType="fitXY"
@@ -78,15 +78,15 @@
         <ImageView
             android:id="@+id/imgFragmeImage"
             android:layout_width="match_parent"
-            android:layout_height="135dp"
+            android:layout_height="@dimen/user_selected_frame_height"
             android:layout_above="@+id/rvFrames"
             android:scaleType="fitXY" />
 
 
         <ImageView
             android:id="@+id/imgClick"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/camera_control_buttons_dimen"
+            android:layout_height="@dimen/camera_control_buttons_dimen"
             android:layout_above="@+id/imgFragmeImage"
             android:layout_alignParentEnd="true"
             android:padding="8dp"

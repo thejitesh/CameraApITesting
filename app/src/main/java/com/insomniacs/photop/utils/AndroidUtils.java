@@ -820,4 +820,34 @@ public class AndroidUtils {
         }
     }
 
+
+    public static void printDensityType(Activity activity){
+
+        Log.d("PHONE_DENSITY_TYPE","DENSITY_LOW"+activity.getResources().getDisplayMetrics().densityDpi);
+
+        switch (activity.getResources().getDisplayMetrics().densityDpi) {
+            case DisplayMetrics.DENSITY_LOW:
+                Log.d("PHONE_DENSITY_TYPE","DENSITY_LOW");
+                break;
+            case DisplayMetrics.DENSITY_MEDIUM:
+                Log.d("PHONE_DENSITY_TYPE","DENSITY_MEDIUM");
+                break;
+            case DisplayMetrics.DENSITY_HIGH:
+                Log.d("PHONE_DENSITY_TYPE","DENSITY_HIGH");
+                break;
+            case DisplayMetrics.DENSITY_XHIGH:
+                Log.d("PHONE_DENSITY_TYPE","DENSITY_XHIGH");
+                break;
+            case DisplayMetrics.DENSITY_XXHIGH:
+                Log.d("PHONE_DENSITY_TYPE","DENSITY_XXHIGH");
+                break;
+            case DisplayMetrics.DENSITY_XXXHIGH:
+                Log.d("PHONE_DENSITY_TYPE","DENSITY_XXXHIGH");
+                break;
+        }
+
+
+
+    }
+
 }

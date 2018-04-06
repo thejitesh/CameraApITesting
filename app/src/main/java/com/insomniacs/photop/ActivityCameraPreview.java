@@ -232,7 +232,16 @@ public class ActivityCameraPreview extends AppCompatActivity implements IOnFrame
 
         currModelTeamLogoFrame = modelTeamLogoFrame;
         Picasso.get().load(modelTeamLogoFrame.frameRes).into(imgFragmeImage);
+        switch (modelTeamLogoFrame.type) {
+            case ModelTeamLogoFrame.TYPE_INDIVIDUAL_TEAM:
+                imgFragmeImage.getLayoutParams().height = (int) getResources().getDimension(R.dimen.user_selected_frame_height_individual);
+                break;
 
+            case ModelTeamLogoFrame.TYPE_TWO_TEAMS:
+                imgFragmeImage.getLayoutParams().height = (int) getResources().getDimension(R.dimen.user_selected_frame_height);
+                break;
+        }
+        imgFragmeImage.requestLayout();
     }
 
     private class SaveImageTask extends AsyncTask<byte[], Void, File> {

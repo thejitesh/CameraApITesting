@@ -17,6 +17,9 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.insomniacs.photop.utils.AndroidUtils;
+import com.insomniacs.photop.utils.Util;
+
 import java.util.ArrayList;
 
 public class ActivitySplash extends AppCompatActivity {
@@ -53,6 +56,7 @@ public class ActivitySplash extends AppCompatActivity {
             }
         });
 
+        AndroidUtils.printDensityType(this);
 
     }
 
